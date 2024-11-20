@@ -1,10 +1,11 @@
-import LawyerRegistrationForm from './components/LawyerRegistrationForm';
 import './App.css'; // Import global styles here
-
+import LawyerOnboardingForm from './components/LawyerOnboarding';
+import LawyerSignupForm from './components/LawyerSignu';
 function App() {
   return (
     <div>
-      <LawyerRegistrationForm />
+      <LawyerSignupForm />
+      <LawyerOnboardingForm />
     </div>
   );
 }
