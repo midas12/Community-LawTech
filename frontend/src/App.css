@@ -122,3 +122,76 @@ body {
 .pink-button:hover {
   background-color: #e91b82;
 }
+
+/* Header Container */
+.header-box {
+  position: fixed; /* Makes the header fixed at the top of the page */
+  top: 0;
+  width: 100%; /* Stretches the header across the page */
+  background-color: #cdd3da; /* Light background */
+  color: white; /* White text color */
+  z-index: 1030; /* Ensures the header is above other elements */
+  box-shadow: 0px 4px 6px rgba(156, 194, 203, 0.1); /* Adds a subtle shadow */
+}
+
+/* Flexbox Utility for Alignment */
+.header-box .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px; /* Adds some padding inside the header */
+}
+
+/* Navigation Links */
+.header-box .nav {
+  margin-left: auto; /* Pushes the navigation links to the right */
+}
+
+.header-box .nav-link {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.header-box .nav-link:hover {
+  color: #f8f9fa; /* Slightly lighter hover effect */
+}
+
+/* Header Buttons */
+.header-buttons .btn {
+  margin-left: 10px;
+  background-color: #da27c8; /* Updated button color */
+  color: white; /* White text */
+  border: none; /* Removes default border */
+  border-radius: 4px; /* Adds slight rounding */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header-buttons .btn:hover {
+  background-color: #b30098; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+.header-buttons .btn-primary {
+  background-color: #da27c8; /* Updated primary button color */
+}
+
+.header-buttons .btn-primary:hover {
+  background-color: #b30098; /* Darker pink on hover */
+}
+
+.header-buttons .btn-outline-light {
+  color: #f6f3f5; /* Text color updated */
+  border: 2px solid #da27c8; /* Updated outline to match */
+}
+
+.header-buttons .btn-outline-light:hover {
+  background-color: #da27c8; /* Background becomes primary color */
+  color: white; /* Text turns white */
+}
+
+/* Content Padding */
+body {
+  padding-top: 80px; /* Adjusts page content to avoid overlapping with the fixed header */
+}
