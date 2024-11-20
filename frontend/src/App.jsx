@@ -1,4 +1,6 @@
-import LawyerRegistrationForm from "./components/LawyerRegistrationForm";
+import LawyerRegistrationForm from './components/LawyerRegistrationForm';
+import './App.css'; // Import global styles here
+
 function App() {
   return (
     <div>

@@ -1,182 +1,174 @@
 import { useState } from 'react';
-import './LawyerRegistrationForm.css';
 
 const LawyerRegistrationForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    officeAddress: '',
-    fields: [],
-    employmentExperience: '',
-    housingExperience: '',
-    immigrationExperience: '',
-    certification: '',
-    phone: '',
-    email: '',
+    username: '',
     password: '',
+    confirmPassword: '',
+    memorableWord: '',
+    agreeToTerms: false,
+    agreeToNewsletter: false,
   });
+
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === 'checkbox') {
-      setFormData((prev) => ({
-        ...prev,
-        fields: checked
-          ? [...prev.fields, value]
-          : prev.fields.filter((field) => field !== value),
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match!';
     }
+
+    if (!formData.agreeToTerms) {
+      newErrors.agreeToTerms = 'You must agree to the terms and conditions!';
+    }
+
+    return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert('Form submitted successfully!');
-    // Add API call or logic to handle form submission
+    const formErrors = validateForm();
+
+    if (Object.keys(formErrors).length === 0) {
+      console.log(formData);
+      alert('Form submitted successfully!');
+      // Add API call or logic to handle form submission
+    } else {
+      setErrors(formErrors);
+    }
   };
 
   return (
     <div className="registration-form">
       <h2>Lawyer Registration</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            required
-          />
+        {/* Basic Details Section */}
+        <div className="section">
+          <h3>Basic Details</h3>
+          <div className="form-group">
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Username </label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            required
-          />
+        {/* Login Details Section */}
+        <div className="section">
+          <h3>Register for Login</h3>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+            />
+            <small>
+              <input
+                type="checkbox"
+                onChange={() => setShowPassword(!showPassword)}
+              />{' '}
+              Show Password
+            </small>
+          </div>
+
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.confirmPassword && (
+              <small className="error">{errors.confirmPassword}</small>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label>Memorable Word </label>
+            <input
+              type="text"
+              name="memorableWord"
+              value={formData.memorableWord}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Office Address</label>
-          <input
-            type="text"
-            name="officeAddress"
-            value={formData.officeAddress}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
+        {/* Agreements Section */}
         <div className="checkbox-group">
-          <label>Field of Practice:</label>
           <label>
             <input
               type="checkbox"
-              name="field"
-              value="Employment"
+              name="agreeToTerms"
+              checked={formData.agreeToTerms}
               onChange={handleInputChange}
             />{' '}
-            Employment
-            <input
-              type="number"
-              name="employmentExperience"
-              placeholder="Years of Experience"
-              value={formData.employmentExperience}
-              onChange={handleInputChange}
-              disabled={!formData.fields.includes('Employment')}
-            />
+            I agree to the terms and conditions and privacy policy
           </label>
+          {errors.agreeToTerms && (
+            <small className="error">{errors.agreeToTerms}</small>
+          )}
+
           <label>
             <input
               type="checkbox"
-              name="field"
-              value="Housing"
+              name="agreeToNewsletter"
+              checked={formData.agreeToNewsletter}
               onChange={handleInputChange}
             />{' '}
-            Housing
-            <input
-              type="number"
-              name="housingExperience"
-              placeholder="Years of Experience"
-              value={formData.housingExperience}
-              onChange={handleInputChange}
-              disabled={!formData.fields.includes('Housing')}
-            />
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="field"
-              value="Immigration"
-              onChange={handleInputChange}
-            />{' '}
-            Immigration
-            <input
-              type="number"
-              name="immigrationExperience"
-              placeholder="Years of Experience"
-              value={formData.immigrationExperience}
-              onChange={handleInputChange}
-              disabled={!formData.fields.includes('Immigration')}
-            />
+            I agree to receive newsletters
           </label>
         </div>
 
-        <div className="form-group">
-          <label>Certification Name</label>
-          <input
-            type="text"
-            name="certification"
-            value={formData.certification}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Phone Number</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-
-        <button type="submit" className="pink-button">
+        <button
+          type="submit"
+          className="pink-button"
+          disabled={!formData.agreeToTerms}
+        >
           Register
         </button>
       </form>
