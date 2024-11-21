@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import axios from 'axios';
 const LawyerOnboardingForm = () => {
     const [formData, setFormData] = useState({
         // Personal Information
@@ -47,7 +47,7 @@ const LawyerOnboardingForm = () => {
 
         // New Fields
         nationalities: '',
-        languages: '',
+        languages: [], // Changed to array
         religion: '',
     });
 
@@ -70,6 +70,24 @@ const LawyerOnboardingForm = () => {
                 [name]: value,
             }));
         }
+    };
+
+    const handleLanguageChange = (e, index) => {
+        const options = e.target.options;
+        const selectedLanguages = [];
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+                selectedLanguages.push(options[i].value);
+            }
+        }
+        setFormData((prev) => {
+            const newLanguages = [...prev.languages];
+            newLanguages[index] = selectedLanguages;
+            return {
+                ...prev,
+                languages: newLanguages,
+            };
+        });
     };
 
     const handleSpecialisationDateChange = (specialisation, date) => {
@@ -98,6 +116,15 @@ const LawyerOnboardingForm = () => {
         alert('Form submitted successfully!');
         // Add API call or logic to handle form submission
     };
+    axios.post('http://localhost:5000/api/lawyers/onboarding', formData)
+        .then((response) => {
+        console.log(response.data);
+        alert('Form submitted successfully!');
+        })
+        .catch((error) => {
+        console.error('There was an error submitting the form!', error);
+        alert('There was an error submitting the form. Please try again.');
+        });
 
     return (
         <div className="onboarding-form">
@@ -204,17 +231,138 @@ const LawyerOnboardingForm = () => {
                     />
                 </div>
 
-                {/* Languages */}
+
+                {/* Language Spoken 1 */}
                 <div className="form-group">
-                    <label>Languages Spoken</label>
-                    <input
-                        type="text"
-                        name="languages"
+                    <label>Langauge Spoken 1</label>
+                    <select
+                        name="Language Spoken 1"
                         value={formData.languages}
                         onChange={handleInputChange}
-                        required
-                    />
-                </div>
+                    >
+    <option value="Hebrew">Hebrew</option>
+    <option value="Hindi">Hindi</option>
+    <option value="Hungarian">Hungarian</option>
+    <option value="Icelandic">Icelandic</option>
+    <option value="Ido">Ido</option>
+    <option value="Igbo">Igbo</option>
+    <option value="Indonesian">Indonesian</option>
+    <option value="Irish">Irish</option>
+    <option value="Italian">Italian</option>
+    <option value="Japanese">Japanese</option>
+    <option value="Kashmiri">Kashmiri</option>
+    <option value="Korean">Korean</option>
+    <option value="Lao">Lao</option>
+    <option value="Latin">Latin</option>
+    <option value="Latvian">Latvian</option>
+    <option value="Lingala">Lingala</option>
+    <option value="Lithuanian">Lithuanian</option>
+    <option value="Luxembourgish">Luxembourgish</option>
+    <option value="Macedonian">Macedonian</option>
+    <option value="Malayalam">Malayalam</option>
+    <option value="Maori">Maori</option>
+    <option value="Mongolian">Mongolian</option>
+    <option value="Nepali">Nepali</option>
+    <option value="Norwegian">Norwegian</option>
+    <option value="Persian">Persian</option>
+    <option value="Polish">Polish</option>
+    <option value="Portuguese">Portuguese</option>
+    <option value="Punjabi">Punjabi</option>
+    <option value="Romanian">Romanian</option>
+    <option value="Russian">Russian</option>
+    <option value="Samoan">Samoan</option>
+    <option value="Sardinian">Sardinian</option>
+    <option value="Serbian">Serbian</option>
+    <option value="Slovak">Slovak</option>
+    <option value="Slovenian">Slovenian</option>
+    <option value="Somali">Somali</option>
+    <option value="Spanish">Spanish</option>
+    <option value="Sundanese">Sundanese</option>
+    <option value="Swahili">Swahili</option>
+    <option value="Swedish">Swedish</option>
+    <option value="Thai">Thai</option>
+    <option value="Tsonga">Tsonga</option>
+    <option value="Tswana">Tswana</option>
+    <option value="Turkish">Turkish</option>
+    <option value="Turkmen">Turkmen</option>
+    <option value="Twi">Twi</option>
+    <option value="Ukrainian">Ukrainian</option>
+    <option value="Urdu">Urdu</option>
+    <option value="Uzbek">Uzbek</option>
+    <option value="Vietnamese">Vietnamese</option>
+    <option value="Welsh">Welsh</option>
+    <option value="Xhosa">Xhosa</option>
+    <option value="Yoruba">Yoruba</option>
+    <option value="Zulu">Zulu</option>
+  </select>
+</div>
+
+
+                {/* Language Spoken 2 */}
+                <div className="form-group">
+                    <label>Language Spoken 2</label>
+                    <select
+                        name="religion"
+                        value={formData.languages}
+                        onChange={handleInputChange}
+                    >
+    <option value="Hebrew">Hebrew</option>
+    <option value="Hindi">Hindi</option>
+    <option value="Hungarian">Hungarian</option>
+    <option value="Icelandic">Icelandic</option>
+    <option value="Ido">Ido</option>
+    <option value="Igbo">Igbo</option>
+    <option value="Indonesian">Indonesian</option>
+    <option value="Irish">Irish</option>
+    <option value="Italian">Italian</option>
+    <option value="Japanese">Japanese</option>
+    <option value="Kashmiri">Kashmiri</option>
+    <option value="Korean">Korean</option>
+    <option value="Lao">Lao</option>
+    <option value="Latin">Latin</option>
+    <option value="Latvian">Latvian</option>
+    <option value="Lingala">Lingala</option>
+    <option value="Lithuanian">Lithuanian</option>
+    <option value="Luxembourgish">Luxembourgish</option>
+    <option value="Macedonian">Macedonian</option>
+    <option value="Malayalam">Malayalam</option>
+    <option value="Maori">Maori</option>
+    <option value="Mongolian">Mongolian</option>
+    <option value="Nepali">Nepali</option>
+    <option value="Norwegian">Norwegian</option>
+    <option value="Persian">Persian</option>
+    <option value="Polish">Polish</option>
+    <option value="Portuguese">Portuguese</option>
+    <option value="Punjabi">Punjabi</option>
+    <option value="Romanian">Romanian</option>
+    <option value="Russian">Russian</option>
+    <option value="Samoan">Samoan</option>
+    <option value="Sardinian">Sardinian</option>
+    <option value="Serbian">Serbian</option>
+    <option value="Slovak">Slovak</option>
+    <option value="Slovenian">Slovenian</option>
+    <option value="Somali">Somali</option>
+    <option value="Spanish">Spanish</option>
+    <option value="Sundanese">Sundanese</option>
+    <option value="Swahili">Swahili</option>
+    <option value="Swedish">Swedish</option>
+    <option value="Thai">Thai</option>
+    <option value="Tsonga">Tsonga</option>
+    <option value="Tswana">Tswana</option>
+    <option value="Turkish">Turkish</option>
+    <option value="Turkmen">Turkmen</option>
+    <option value="Twi">Twi</option>
+    <option value="Ukrainian">Ukrainian</option>
+    <option value="Urdu">Urdu</option>
+    <option value="Uzbek">Uzbek</option>
+    <option value="Vietnamese">Vietnamese</option>
+    <option value="Welsh">Welsh</option>
+    <option value="Xhosa">Xhosa</option>
+    <option value="Yoruba">Yoruba</option>
+    <option value="Zulu">Zulu</option>
+  </select>
+</div>
+
 
                 {/* Religion */}
                 <div className="form-group">
@@ -234,7 +382,7 @@ const LawyerOnboardingForm = () => {
                         <option value="Taoism">Taoism</option>
                         <option value="Shinto">Shinto</option>
                         <option value="Jainism">Jainism</option>
-                        <option value="Bahá'í Faith">Bahá'í Faith</option>
+                        <option value="Bahá&apos;í Faith">Bahá'í Faith</option>
                         <option value="Confucianism">Confucianism</option>
                         <option value="Zoroastrianism">Zoroastrianism</option>
                     </select>

@@ -1,11 +1,11 @@
 function Header() {
   return (
     <>
-      <header className="header-box fixed-top bg-dark text-white w-100">
-        <div className="container-fluid d-flex flex-wrap justify-content-between align-items-center p-3">
-          <div className="left-text fw-bold fs-3 mb-2 mb-md-0">Law Tech</div>
+      <header className="header-box fixed-top bg-dark text-white">
+        <div className="container d-flex justify-content-between align-items-center p-3">
+          <div className="left-text fw-bold fs-3">Law Tech</div>
 
-          <nav className="nav ms-auto">
+          <nav className="nav">
             <a href="#home" className="nav-link text-white">
               Home
             </a>
@@ -20,7 +20,7 @@ function Header() {
             </a>
           </nav>
 
-          <div className="header-buttons ms-3">
+          <div className="header-buttons">
             <button className="btn btn-primary me-2">Search Lawyers</button>
             <button className="btn btn-outline-light">Get Involved</button>
           </div>
