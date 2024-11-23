@@ -1,28 +1,24 @@
 import './App.css'; 
 import LawyerOnboardingForm from './components/LawyerOnboarding';
-import LawyerSignupForm from './components/LawyerSignup';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import UserPreferencesForm from './components/UserPreferencesForm';
-
 import OurLegalSupport from './components/OurLegalSupport';
+import HomePage from './components/HomePage';
+
 function App() {
   return (
     <Router>
-      <div className="app-container">
-        <Header />
-        <div className="content">
-          <LawyerSignupForm />
-          <LawyerOnboardingForm />
-          <UserPreferencesForm />
-        </div>
-        <Footer />
-        <Switch>
-          {/* <Route exact path="/" component={HomePage} /> */}
-          <Route exact path="/services" component={OurLegalSupport} />
-        </Switch>
-      </div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/lawyer-onboarding" element={<LawyerOnboardingForm />} />
+        <Route path="/lawyer-signup" element={<LawyerSignupForm />} />
+        <Route path="/user-preferences" element={<UserPreferencesForm />} />
+        <Route path="/our-legal-support" element={<OurLegalSupport />} />
+      </Routes>
+      <Footer />
     </Router>
   );
 }
