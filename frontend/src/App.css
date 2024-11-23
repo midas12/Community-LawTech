@@ -1,22 +1,40 @@
 body {
-  background-color: rgb(242, 242, 225);
+  background: url('https://wallpapercave.com/wp/3qiHO2W.jpg') center center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
 }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .app-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: left;
   min-height: 800vh; 
 }
 .content {
   flex: 1; 
 }
-/* Removed duplicate .header-box */
-
+/* Header Container */
+.header-box {
+  position: relative; /* Changed from fixed to relative */
+  top: 0;
+  width: 100%; /* Stretches the header across the page */
+  background-color: #cdd3da; /* Light background */
+  color: white; /* White text color */
+  z-index: 1030; /* Ensures the header is above other elements */
+  box-shadow: 0px 4px 6px rgba(156, 194, 203, 0.1); /* Adds a subtle shadow */
+}
 .header-box nav {
-  display: flex; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 20px; /* Space between links */
   margin-left: 30%; 
 }
@@ -74,7 +92,7 @@ body {
   bottom: 0; 
   left: 0; 
   padding: 10px 20px; 
-  background-color: white; 
+  background-color: rgba(205, 206, 206, 0.841); 
   z-index: 1000; 
 }
 
@@ -352,11 +370,18 @@ body {
   color: #da27c8;
 }
 .hero {
-  background: url('https://wallpapercave.com/wp/3qiHO2W.jpg') no-repeat center center/cover;
+  /* background: url('https://wallpapercave.com/wp/3qiHO2W.jpg') no-repeat center center/cover; */
   color: rgb(22, 22, 20);
   padding: 120px 20px;
   text-align: center;
   height: 100vh;
+}
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .hero .container {
@@ -397,6 +422,7 @@ body {
   background-color: white;
   color: #000;
 }
+
 /* Services Page */
 .services-page {
   padding: 20px;
