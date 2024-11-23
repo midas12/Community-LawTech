@@ -1,16 +1,16 @@
-import './App.css'; // Import global styles here
-import LawyerOnboardingForm from './components/LawyerOnboarding';
-import LawyerSignupForm from './components/LawyerSignu';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
-
+import HomePage from './components/HomePage';
+import OurLegalSupport from './components/OurLegalSupport';
 function App() {
   return (
-    <div>
-      <LawyerSignupForm />
-      <LawyerOnboardingForm />
+    <Router>
       <Header />
-
-    </div>
+      <Switch>
+        {/* <Route exact path="/" component={HomePage} /> */}
+        <Route exact path="/services" component={OurLegalSupport} />
+      </Switch>
+    </Router>
   );
 }
 

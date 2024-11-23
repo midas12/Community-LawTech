@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+
 const LawyerOnboardingForm = () => {
     const [formData, setFormData] = useState({
         // Personal Information
@@ -72,23 +73,6 @@ const LawyerOnboardingForm = () => {
         }
     };
 
-    const handleLanguageChange = (e, index) => {
-        const options = e.target.options;
-        const selectedLanguages = [];
-        for (let i = 0; i < options.length; i++) {
-            if (options[i].selected) {
-                selectedLanguages.push(options[i].value);
-            }
-        }
-        setFormData((prev) => {
-            const newLanguages = [...prev.languages];
-            newLanguages[index] = selectedLanguages;
-            return {
-                ...prev,
-                languages: newLanguages,
-            };
-        });
-    };
 
     const handleSpecialisationDateChange = (specialisation, date) => {
         setFormData((prev) => ({
@@ -115,16 +99,16 @@ const LawyerOnboardingForm = () => {
         console.log(formData);
         alert('Form submitted successfully!');
         // Add API call or logic to handle form submission
+        axios.post('http://localhost:5000/api/lawyers/onboarding', formData)
+            .then((response) => {
+                console.log(response.data);
+                alert('Form submitted successfully!');
+            })
+            .catch((error) => {
+                console.error('There was an error submitting the form!', error);
+                alert('There was an error submitting the form. Please try again.');
+            });
     };
-    axios.post('http://localhost:5000/api/lawyers/onboarding', formData)
-        .then((response) => {
-        console.log(response.data);
-        alert('Form submitted successfully!');
-        })
-        .catch((error) => {
-        console.error('There was an error submitting the form!', error);
-        alert('There was an error submitting the form. Please try again.');
-        });
 
     return (
         <div className="onboarding-form">
@@ -382,7 +366,7 @@ const LawyerOnboardingForm = () => {
                         <option value="Taoism">Taoism</option>
                         <option value="Shinto">Shinto</option>
                         <option value="Jainism">Jainism</option>
-                        <option value="Bahá&apos;í Faith">Bahá'í Faith</option>
+                        <option value="Bahá&apos;í Faith">Bahá Faith</option>
                         <option value="Confucianism">Confucianism</option>
                         <option value="Zoroastrianism">Zoroastrianism</option>
                     </select>

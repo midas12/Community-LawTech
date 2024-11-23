@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const LawyerSignupForm = () => {
+const LawyerRegistrationForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -176,4 +176,4 @@ const LawyerSignupForm = () => {
   );
 };
 
-export default LawyerSignupForm;
+export default LawyerRegistrationForm;
