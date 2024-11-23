@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import UserPreferencesForm from './components/UserPreferencesForm';
 import OurLegalSupport from './components/OurLegalSupport';
 import HomePage from './components/HomePage';
-
+import LawyerRegistrationForm from './components/LawyerRegistrationForm';
 function App() {
   return (
     <Router>
@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/lawyer-onboarding" element={<LawyerOnboardingForm />} />
-        <Route path="/lawyer-signup" element={<LawyerSignupForm />} />
+        <Route path="/lawyerRegistrationForm" element={<LawyerRegistrationForm />} />
         <Route path="/user-preferences" element={<UserPreferencesForm />} />
         <Route path="/our-legal-support" element={<OurLegalSupport />} />
       </Routes>
