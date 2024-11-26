@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import LawyerOnboarding from "./LawyerOnboarding"; 
 
 const LawyerRegistrationForm = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,6 +18,7 @@ const LawyerRegistrationForm = () => {
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [showOnboardingForm, setShowOnboardingF] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -44,10 +49,15 @@ const LawyerRegistrationForm = () => {
     if (Object.keys(formErrors).length === 0) {
       console.log(formData);
       alert('Form submitted successfully!');
-      // Add API call or logic to handle form submission
+      // Redirect to LawyerOnboardingForm
+      navigate('/LawyerOnboarding'); // Navigate to the onboarding page
     } else {
       setErrors(formErrors);
     }
+  };
+
+  const handleLawyerOnboardingClick = () => {
+    setShowOnboardingForm(true);
   };
 
   return (
@@ -168,10 +178,16 @@ const LawyerRegistrationForm = () => {
           type="submit"
           className="pink-button"
           disabled={!formData.agreeToTerms}
+          onClick={handleLawyerOnboardingClick}
         >
           Register
         </button>
       </form>
+      {showOnboardingForm && (
+        <div className="form-container">
+        <LawyerOnboarding /> 
+        </div>
+      )}
     </div>
   );
 };
