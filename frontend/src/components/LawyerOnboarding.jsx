@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const LawyerOnboardingForm = () => {
+const LawyerOnboarding = () => {
     const [formData, setFormData] = useState({
         // Personal Information
         firstName: '',
@@ -655,4 +655,4 @@ const LawyerOnboardingForm = () => {
     );
 };
 
-export default LawyerOnboardingForm;
+export default LawyerOnboarding;
