@@ -6,8 +6,6 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,15 +19,17 @@ body {
 .content {
   flex: 1; 
 }
+
 /* Header Container */
 .header-box {
-  position: relative; /* Changed from fixed to relative */
+  position: fixed; /* Changed from fixed to relative */
   top: 0;
+  left: 0;
   width: 100%; /* Stretches the header across the page */
-  background-color: #cdd3da; /* Light background */
+  background-color: #ccd8ad9f; /* Light background */
   color: white; /* White text color */
   z-index: 1030; /* Ensures the header is above other elements */
-  box-shadow: 0px 4px 6px rgba(156, 194, 203, 0.1); /* Adds a subtle shadow */
+  box-shadow: 0px 4px 6px rgba(156, 194, 203, 0.178); /* Adds a subtle shadow */
 }
 .header-box nav {
   display: flex;
@@ -38,19 +38,16 @@ body {
   gap: 20px; /* Space between links */
   margin-left: 30%; 
 }
-
 .header-box nav a {
   text-decoration: none; 
   color: white; 
   font-size: 1.2rem; 
   font-weight: bold; 
 }
-
 .header-box nav a:hover {
   text-decoration: underline; 
   color: #f0f0f0; 
 }
-
 .header-buttons {
   display: flex; 
   gap: 15px; /* Space between buttons */
@@ -60,9 +57,24 @@ body {
   font-size: 1.5rem; 
   font-weight: bold; 
   color: white; 
-  margin-left: 10px; 
+  margin-left: 50px; 
 }
-
+.header-box .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px; /* Adds some padding inside the header */
+}
+.header-box .nav-link {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth hover effect */
+}
+.header-box .nav-link:hover {
+  color: #f8f9fa; /* Slightly lighter hover effect */
+}
+/* Header Buttons */
 .btn {
   padding: 10px 15px; 
   font-size: 14px; 
@@ -73,36 +85,37 @@ body {
   cursor: pointer; 
   transition: background-color 0.3s; 
 }
-
 .btn:hover {
   background-color: #d0d3d6; 
 }
-
-.search-btn {
-  background-color: #e74040; 
+.header-buttons .btn {
+  margin-left: 10px;
+  background-color: #da27c8; /* Updated button color */
+  color: white; /* White text */
+  border: 2px solid #da27c8; /* Removes default border */
+  border-radius: 4px; /* Adds slight rounding */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
-.get-involved-btn {
-  background-color: #e74040; 
+.header-buttons .btn:hover {
+  background-color: #b30098; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 .footer-box {
   width: 100vw; 
-  position: fixed;
+  position: relative;
   bottom: 0; 
   left: 0; 
   padding: 10px 20px; 
-  background-color: rgba(205, 206, 206, 0.841); 
+  background-color: #f5ffdabd; 
   z-index: 1000; 
 }
-
 .footer-line {
   width: 100%; 
   margin: 0; 
   border: 0; 
   border-top: 1px solid #ccc; 
 }
-
 .footer-text {
   display: flex; 
   justify-content: flex-start; 
@@ -110,7 +123,6 @@ body {
   gap: 10px; /* space between copyright and terms */
   margin-top: 5px; /* Space between the line and text */
 }
-
 .copyright-text {
   font-size: 0.75rem; 
   color: #888; 
@@ -135,35 +147,33 @@ body {
   text-align: left; 
   margin-left: 80px; 
 }
-
 .privacy-link:hover {
   text-decoration: underline; 
 }
 
+/*On Boarding Form*/
 .onboarding-form {
-  width: 400px;
+  width: 500px;
   margin: 50px auto;
-  background-color: #fff;
+  background-color: #ffffff77;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #000000; /*text colour*/
 }
-
 .onboarding-form h2 {
   text-align: center;
 }
-
 .section {
   margin-bottom: 20px;
 }
-
 .form-group {
   margin-bottom: 15px;
 }
-
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  color: #000;
 }
 
 .form-group input[type='text'],
@@ -174,15 +184,15 @@ body {
 .form-group select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #0f0f0f;
   border-radius: 4px;
+  background-color: #fffefe;
+  color: #000;
 }
-
 .checkbox-group label {
   display: block;
   margin-top: 5px;
 }
-
 .pink-button {
   background-color: pink;
   color: black;
@@ -194,7 +204,6 @@ body {
   font-size: 16px;
   margin-top: 10px;
 }
-
 .pink-button:hover {
   background-color: #ff69b4;
 }
@@ -204,72 +213,68 @@ body {
   font-size: 12px;
 }
 
-/* Header Container */
-.header-box {
-  position: fixed; /* Makes the header fixed at the top of the page */
-  top: 0;
-  width: 100%; /* Stretches the header across the page */
-  background-color: #cdd3da; /* Light background */
-  color: white; /* White text color */
-  z-index: 1030; /* Ensures the header is above other elements */
-  box-shadow: 0px 4px 6px rgba(156, 194, 203, 0.1); /* Adds a subtle shadow */
+
+
+
+
+
+
+
+/*Registration Form*/
+.registration-form {
+  width: 500px;
+  margin: 50px auto;
+  background-color: #ffffff77;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #000000; /*text colour*/
+}
+.registration-form h2 {
+  text-align: center;
+}
+.section {
+  margin-bottom: 20px;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000;
 }
 
-/* Flexbox Utility for Alignment */
-.header-box .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px; /* Adds some padding inside the header */
+.form-group input[type='text'],
+.form-group input[type='email'],
+.form-group input[type='tel'],
+.form-group input[type='date'],
+.form-group input[type='file'],
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #0f0f0f;
+  border-radius: 4px;
+  background-color: #fffefe;
+  color: #000;
 }
-
-/* Navigation Links */
-.header-box .nav {
-  margin-left: auto; /* Pushes the navigation links to the right */
+.checkbox-group label {
+  display: block;
+  margin-top: 5px;
 }
-
-.header-box .nav-link {
-  color: white;
-  margin-right: 15px;
-  text-decoration: none;
-  transition: color 0.3s ease; /* Smooth hover effect */
+.pink-button {
+  background-color: pink;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  margin-top: 10px;
 }
-
-.header-box .nav-link:hover {
-  color: #f8f9fa; /* Slightly lighter hover effect */
-}
-
-/* Header Buttons */
-.header-buttons .btn {
-  margin-left: 10px;
-  background-color: #da27c8; /* Updated button color */
-  color: white; /* White text */
-  border: none; /* Removes default border */
-  border-radius: 4px; /* Adds slight rounding */
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.header-buttons .btn:hover {
-  background-color: #b30098; /* Darker shade on hover */
-  transform: scale(1.05); /* Slight zoom effect */
-}
-
-.header-buttons .btn-primary {
-  background-color: #da27c8; /* Updated primary button color */
-}
-
-.header-buttons .btn-primary:hover {
-  background-color: #b30098; /* Darker pink on hover */
-}
-
-.header-buttons .btn-outline-light {
-  color: #f6f3f5; /* Text color updated */
-  border: 2px solid #da27c8; /* Updated outline to match */
-}
-
-.header-buttons .btn-outline-light:hover {
-  background-color: #da27c8; /* Background becomes primary color */
-  color: white; /* Text turns white */
+.pink-button:hover {
+  background-color: #ff69b4;
 }
 
 /* Content Padding */
@@ -374,7 +379,7 @@ body {
   color: rgb(22, 22, 20);
   padding: 120px 20px;
   text-align: center;
-  height: 100vh;
+  height: 50vh;
 }
 .hero {
   display: flex;
