@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import axiosInstance from '../Api/axiosInstance';
+import LawyerOnboardingForm from './LawyerOnboardingForm';
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -54,6 +55,7 @@ const LawyerRegistrationForm = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showOnboardingForm, setShowOnboardingForm] = useState(false);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -65,6 +67,7 @@ const LawyerRegistrationForm = () => {
       toast.error(error.response?.data?.message || "Registration failed!");
     } finally {
       setIsSubmitting(false);
+      setShowOnboardingForm(true);
     }
   };
 
@@ -173,9 +176,15 @@ const LawyerRegistrationForm = () => {
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-          {isSubmitting ? "Registering..." : "Register"}
+          {isSubmitting ? "Submitting..." : "Register"}
         </button>
       </form>
+
+      {showOnboardingForm && (
+        <div className="form-container">
+          <LawyerOnboardingForm /> 
+        </div>
+      )}
     </div>
   );
 };
