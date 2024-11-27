@@ -39,6 +39,7 @@ function Header() {
             <button className="btn btn-outline-light" onClick={handleGetInvolvedClick}>
               Get Involved
             </button>
+            <button className="btn btn-login">Login</button>
           </div>
         </div>
       </header>
