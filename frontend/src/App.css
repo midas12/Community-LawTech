@@ -36,7 +36,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px; /* Space between links */
-  margin-left: 30%; 
+  margin-left: 20%; 
 }
 .header-box nav a {
   text-decoration: none; 
