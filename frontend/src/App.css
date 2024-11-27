@@ -1,15 +1,30 @@
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
   background: url('https://wallpapercave.com/wp/3qiHO2W.jpg') center center fixed;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.app-container {
+  display: flex;
+  flex-direction: left;
+  min-height: 800vh; 
+  padding-top: 120px;
+}
+.content {
+  flex: 1; 
 }
 
+
 /* Header Styles */
-.header {
+.header-box {
   background-color: white;
   padding: 20px 0;
   border-bottom: 1px solid #ddd;
@@ -17,9 +32,9 @@ body {
   top: 0;
   width: 100%;
   z-index: 1000;
+  left: 0%;
 }
-
-.header .container {
+.header-box .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,73 +42,57 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
-
-.header .logo {
+.header-box .logo {
   font-weight: bold;
   font-size: 1.5em;
+  color: #000;
 }
-
-.header .navigation ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.header-box nav {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Space between links */
+  margin-left: 20%; 
 }
-
-.header .navigation ul li {
-  display: inline;
+.header-box nav a {
+  text-decoration: none; 
+  color: rgb(0, 0, 0); 
+  font-size: 1.2rem; 
+  font-weight: bold; 
 }
-
-.header .navigation ul li a {
-  text-decoration: none;
-  color: black;
-  font-size: 1em;
+.header-box nav a:hover {
+  text-decoration: underline; 
+  color: #da27c8;; 
 }
-
-.header .navigation ul li a:hover {
-  color: #da27c8;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 10px;
-}
-
+/* Header Buttons */
 .btn {
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 1em;
-  border-radius: 5px;
-  transition: background-color 0.3s, transform 0.2s;
+  padding: 10px 15px; 
+  font-size: 1em; 
+  color: white; 
+  background-color: #9c9c9c; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+}
+.btn:hover {
+  background-color: #d0d3d6; 
+}
+.header-buttons .btn {
+  margin-left: 10px;
+  background-color: #da27c8; /* Updated button color */
+  color: white; /* White text */
+  border: 2px solid #da27c8; /* Removes default border */
+  border-radius: 4px; /* Adds slight rounding */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.header-buttons .btn:hover {
+  background-color: #b30098; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
-.btn-outline-primary {
-  background-color: white;
-  border: 2px solid #da27c8;
-  color: #da27c8;
-}
 
-.btn-outline-primary:hover {
-  background-color: #da27c8;
-  color: white;
-}
-
-.btn-primary {
-  background-color: #da27c8;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #b30098;
-}
-
-/* Additional Styles */
-.app-container {
-  padding-top: 80px; /* Adjusts page content to avoid overlapping with the fixed header */
-}
-
+/*On boarding form*/
 .onboarding-form {
   width: 400px;
   margin: 50px auto;
@@ -102,7 +101,6 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 .onboarding-form h2 {
   text-align: center;
 }
@@ -111,87 +109,130 @@ body {
   margin-bottom: 20px;
 }
 
+/*Lawyer registration form*/
+.lawyer-registration-form {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 500px;
+  margin: 50px auto;
+  font-size: 16px;
+  margin-top: 150px;
+}
+.lawyer-registration-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #000000;
+}
 .form-group {
   margin-bottom: 15px;
 }
-
 .form-group label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
+  color: #000000;
+}
+.form-control {
+  width: 95%;
+  padding: 9px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  border: 1px solid #0f0f0f;
+  color: #000000;
+  background-color: #fffefe;
 }
 
-.form-group input[type='text'],
-.form-group input[type='email'],
-.form-group input[type='tel'],
-.form-group input[type='date'],
-.form-group input[type='file'],
-.form-group select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.is-invalid {
+  border-color: #dc3545;
 }
-
-.checkbox-group label {
-  display: block;
+.invalid-feedback {
+  font-size: 12px;
+  color: #dc3545;
   margin-top: 5px;
 }
-
-.pink-button {
-  background-color: pink;
-  color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.form-check {
+  margin-top: 10px;
+}
+.form-check-input {
+  margin-right: 10px;
+}
+.form-check-label {
+  font-size: 14px;
+}
+/* Buttons */
+.btn-submit {
+  display: block;
   width: 100%;
+  padding: 10px;
   font-size: 16px;
-  margin-top: 10px;
-}
-
-.pink-button:hover {
-  background-color: #ff69b4;
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-}
-
-.footer {
-  background-color: #f8f9fa;
-  padding: 20px 0;
-  text-align: center;
-  border-top: 1px solid #ddd;
-}
-
-.footer .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.footer p {
-  margin: 0;
-  color: #333;
-}
-
-.footer nav {
-  margin-top: 10px;
-}
-
-.footer nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #555;
   font-weight: bold;
-  transition: color 0.3s;
+  color: #ffffff;
+  background-color: #da27c8;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-submit:hover {
+  background-color: #da27c8;
+  transform: scale(1.02);
+}
+.btn-submit:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
-.footer nav a:hover {
+
+/*Footer*/
+.footer-box {
+  width: 100vw; 
+  position: relative;
+  bottom: 0; 
+  left: 0; 
+  padding: 10px 20px; 
+  background-color: #f5ffda; 
+  z-index: 1000; 
+}
+.footer-line {
+  width: 100%; 
+  margin: 0; 
+  border: 0; 
+  border-top: 1px solid #ccc; 
+}
+.footer-text {
+  display: flex; 
+  justify-content: flex-start; 
+  align-items: left; 
+  gap: 10px; /* space between copyright and terms */
+  margin-top: 5px; /* Space between the line and text */
+}
+.copyright-text {
+  font-size: 0.75rem; 
+  color: #888; 
+  margin-top: 10px; /* Space between the line and text */
+  text-align: left; 
+  margin-left: 80px; 
+}
+.terms-link {
+  font-size: 0.75rem; 
+  color: #888; 
+  margin-top: 10px; /* Space between the line and text */
+  text-align: left; 
+  margin-left: 80px; 
+}
+.terms-link:hover {
+  text-decoration: underline; 
   color: #da27c8;
 }
 
+
+/*Home Page*/
 .hero {
   color: rgb(22, 22, 20);
   padding: 120px 20px;
@@ -201,24 +242,70 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
-
 .hero .container {
   max-width: 800px;
   margin: 0 auto;
 }
-
 .hero h2 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 20px;
 }
-
 .hero p {
   font-size: 1.2rem;
   margin-bottom: 30px;
 }
+.hero-buttons {
+  display: flex; /* Ensures the buttons are laid out horizontally */
+  gap: 20px; /* Adds space between buttons */
+  justify-content: center; /* Centers the buttons */
+  margin-top: 20px; /* Optional: Adds space above the buttons */
+}
+.btn {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: white;
+  background-color: #9c9c9c;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.btn:hover {
+  background-color: #da27c8;
+}
+.btn-primary {
+  background-color: #da27c8; /* Updated primary button color */
+  color: white; /* White text */
+  border: 2px solid #da27c8; /* Removes default border */
+}
+.btn-outline-secondary {
+  background-color: #6b6b6bda;
+  color: #000000;
+  border: 2px solid #9c9c9c;
+  transition: background-color 0.3s, color 0.3s;
+}
+.btn-outline-secondary:hover {
+  background-color: #9c9c9c;
+  color: white;
+}
+.chatbot-button {
+  margin-top: 20px; /* Adds space between the buttons and the chatbot button */
+  padding: 10px 15px;
+  font-size: 14px;
+  color: white;
+  background-color: #c56db2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.chatbot-button:hover {
+  background-color: #45a049; /* Slightly darker shade on hover */
+}
+
+
 
 .services-page {
   padding: 20px;
@@ -294,101 +381,5 @@ body {
 
 .pink-button:hover {
   background-color: #ff69b4;
-}/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
 }
 
-/* Header Styles */
-.header {
-  background-color: white;
-  padding: 20px 0;
-  border-bottom: 1px solid #ddd;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-}
-
-.header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.header .logo {
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-.header .navigation ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 20px;
-}
-
-.header .navigation ul li {
-  display: inline;
-}
-
-.header .navigation ul li a {
-  text-decoration: none;
-  color: black;
-  font-size: 1em;
-}
-
-.header .navigation ul li a:hover {
-  color: #da27c8;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  font-size: 1em;
-  border-radius: 5px;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-outline-primary {
-  background-color: white;
-  border: 2px solid #da27c8;
-  color: #da27c8;
-}
-
-.btn-outline-primary:hover {
-  background-color: #da27c8;
-  color: white;
-}
-
-.btn-primary {
-  background-color: #da27c8;
-  color: white;
-}
-
-.btn-primary:hover {
-  background-color: #b30098;
-}
-
-/* Additional Styles */
-.app-container {
-  padding-top: 80px; /* Adjusts page content to avoid overlapping with the fixed header */
-}
-
-
-.error {
-  color: red;
-  font-size: 12px;
-}
