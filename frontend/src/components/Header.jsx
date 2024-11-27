@@ -1,54 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
-import LawyerRegistrationForm from "./LawyerRegistrationForm"; 
+import "../App.css"; // Import the central CSS file
 
-function Header() {
-  //const [showForm, setShowForm] = useState(false); // State to toggle the form
-  const navigate = useNavigate(); // Initialize the navigate function
-
-  const handleGetInvolvedClick = () => {
-    // Navigate to the Lawyer Registration page
-    navigate('/LawyerRegistrationForm');
-  };
-
-  const handleHomeClick = () => {
-    navigate('/'); // Navigate to the home page
-  };
-
+const Header = () => {
   return (
-    <>
-      <header className="header-box fixed-top bg-dark text-white">
-        <div className="container d-flex justify-content-between align-items-center p-3">
-          <div className="left-text fw-bold fs-3">Law Tech</div>
-
-          <nav className="nav">
-            <a href="#home" className="nav-link text-white" onClick={handleHomeClick}>Home</a> {/* Updated Home link */}
-            <a href="#about" className="nav-link text-white">
-              About Us
-            </a>
-            <a href="#services" className="nav-link text-white">
-              Services
-            </a>
-            <a href="#contact" className="nav-link text-white">
-              Donate
-            </a>
-          </nav>
-
-          <div className="header-buttons">
-            <button className="btn btn-primary me-2">Search Lawyers</button>
-            <button className="btn btn-outline-light" onClick={handleGetInvolvedClick}>
-              Get Involved
-            </button>
-          </div>
+    <header className="header">
+      <div className="container">
+        <div className="logo">Law Tech Firm</div>
+        <nav className="navigation">
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#search">Search Lawyers</a></li>
+            <li><a href="#donate">Donate</a></li>
+          </ul>
+        </nav>
+        <div className="header-buttons">
+          <button className="btn btn-outline-primary">Search Lawyers</button>
+          <button className="btn btn-primary">Get Involved</button>
         </div>
-      </header>
-      {/* {showForm && (
-        <div className="form-container">
-        <LawyerRegistrationForm /> 
-        </div>
-      )} */}
-    </>
+      </div>
+    </header>
   );
-}
+};
 
 export default Header;
