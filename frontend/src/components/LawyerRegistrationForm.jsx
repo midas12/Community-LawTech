@@ -175,7 +175,7 @@ const LawyerRegistrationForm = () => {
           <div className="invalid-feedback">{errors.terms?.message}</div>
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+        <button type="submit" className=" btn-submit" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Register"}
         </button>
       </form>
