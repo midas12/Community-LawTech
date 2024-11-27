@@ -1,42 +1,57 @@
-import { useEffect, useState } from "react";
-import axiosInstance from '../Api/axiosInstance';  // Correct import path for axiosInstance
-import "../App.css";
-import Chatbot from 'react-chatbot-kit';
-import 'react-chatbot-kit/build/main.css';
+import React, { useState } from "react";
+import LawyerRegistrationForm from "./LawyerRegistrationForm"; // Import the form component
+import Header from "./Header"; // Import the Header component
+import Footer from "./Footer"; // Import the Footer component
+import Chatbot from "react-chatbot-kit"; // Import the Chatbot
+import "react-chatbot-kit/build/main.css"; // Import Chatbot styles
 
 const HomePage = () => {
-  const [showChatbot, setShowChatbot] = useState(false);
-
-  useEffect(() => {
-    axiosInstance.get('/api/endpoint')
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error making the request!', error);
-      });
-  }, []);
+  const [showForm, setShowForm] = useState(false); // State to control form visibility
+  const [showChatbot, setShowChatbot] = useState(false); // State to control chatbot visibility
 
   return (
-    <section className="hero">
-      <div className="container hero-content">
-        <h2>Empowering Communities with Legal Support</h2>
-        <p>Community LawTech connects you with accredited community lawyers who understand your needs. Our platform offers culturally and linguistically appropriate legal support in areas like immigration, housing, and employment.</p>
-        <div className="hero-buttons">
-          <button className="btn btn-primary">Find Lawyers</button>
-          <button className="btn btn-outline-secondary">Donate Now</button>
-        </div>
-        <button onClick={() => setShowChatbot(!showChatbot)} className="chatbot-button">
-          {showChatbot ? "Close Chatbot" : "Open Chatbot"}
-        </button>
-      </div>
-      {showChatbot && <Chatbot />}
-      <div className="job-adverts">
-        <h2>Join Us</h2>
-        <p>We are always looking for passionate individuals to help us.</p>
-        <button className="btn btn-primary">View Positions</button>
-      </div>
-    </section>
+    <>
+      {/* Header always renders */}
+      <Header setShowForm={setShowForm} />
+
+      {/* Conditional Rendering: Show homepage content if showForm is false */}
+      {!showForm && (
+        <section className="hero">
+          <div className="container hero-content">
+            <h2>Empowering Communities with Legal Support</h2>
+            <p>
+              Community LawTech connects you with accredited community lawyers
+              who understand your needs. Our platform offers culturally and
+              linguistically appropriate legal support in areas like
+              immigration, housing, and employment.
+            </p>
+            <div className="hero-buttons">
+              <button className="btn btn-primary">Find Lawyers</button>
+              <button className="btn btn-outline-secondary">Donate Now</button>
+            </div>
+            <button
+              onClick={() => setShowChatbot(!showChatbot)}
+              className="chatbot-button"
+            >
+              {showChatbot ? "Close Chatbot" : "Open Chatbot"}
+            </button>
+          </div>
+
+          {/* Chatbot conditional rendering */}
+          {showChatbot && <Chatbot />}
+          
+          <div className="job-adverts">
+            <h2>Join Us</h2>
+            <p>We are always looking for passionate individuals to help us.</p>
+            <button className="btn btn-primary">View Positions</button>
+          </div>
+        </section>
+      )}
+
+      {/* Display LawyerRegistrationForm if showForm is true */}
+      {showForm && <LawyerRegistrationForm />}
+
+    </>
   );
 };
 
