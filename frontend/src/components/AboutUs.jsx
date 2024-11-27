@@ -5,17 +5,17 @@ import { faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 const AboutUs = () => {
   const teamMembers = [
     {
-      name: "Emily Chen",
+      name: "Ammar Abdul Razak",
       role: "Paralegal",
-      description: "Emily supports the legal team with her expertise in documentation and case management.",
+      description: "Ammar supports the legal team with her expertise in documentation and case management.",
       image: "https://via.placeholder.com/150",
       linkedin: "#",
       twitter: "#",
     },
     {
-      name: "James Carter",
+      name: "Hiba El Haroun",
       role: "Outreach Coordinator",
-      description: "James works to connect the firm with the community, ensuring that services reach those in need.",
+      description: "Gaby works to connect the firm with the community, ensuring that services reach those in need.",
       image: "https://via.placeholder.com/150",
       linkedin: "#",
       twitter: "#",
