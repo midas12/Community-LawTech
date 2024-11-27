@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import axiosInstance from '../Api/axiosInstance';
 
 const UserPreferencesForm = () => {
   const [formValues, setFormValues] = useState({
@@ -7,7 +8,7 @@ const UserPreferencesForm = () => {
     language: '',
     gender: '',
     religion: '',
-    nationality: ''
+    nationality: '',
   });
 
   const [showForm, setShowForm] = useState(true);
@@ -27,81 +28,64 @@ const UserPreferencesForm = () => {
     'Shona', 'Sindhi', 'Sinhala', 'Slovak', 'Slovenian', 'Somali', 'Spanish', 
     'Sundanese', 'Swahili', 'Swedish', 'Tajik', 'Tamil', 'Tatar', 'Telugu', 
     'Thai', 'Turkish', 'Turkmen', 'Ukrainian', 'Urdu', 'Uyghur', 'Uzbek', 
-    'Vietnamese', 'Welsh', 'Xhosa', 'Yoruba'
-  ];
-  
-  languages.sort();  
+    'Vietnamese', 'Welsh', 'Xhosa', 'Yoruba',
+  ].sort();
 
   const nationalities = [
     'Afghan', 'Albanian', 'Algerian', 'American', 'Andorran', 'Angolan', 
-    'Antiguan', 'Argentine', 'Armenian', 'Australian', 'Austrian', 'Azerbaijani', 
-    'Bahamian', 'Bahraini', 'Bangladeshi', 'Barbadian', 'Belarusian', 'Belgian', 
-    'Belizean', 'Beninese', 'Bhutanese', 'Bolivian', 'Bosnian', 'Botswanan', 
-    'Brazilian', 'British', 'Bruneian', 'Bulgarian', 'Burkinabe', 'Burmese', 
-    'Burundian', 'Cambodian', 'Cameroonian', 'Canadian', 'Cape Verdean', 
-    'Central African', 'Chadian', 'Chilean', 'Chinese', 'Colombian', 'Comoran', 
-    'Congolese (Congo-Brazzaville)', 'Congolese (Congo-Kinshasa)', 'Costa Rican', 
-    'Croatian', 'Cuban', 'Cypriot', 'Czech', 'Danish', 'Djiboutian', 'Dominican', 
-    'Dutch', 'East Timorese', 'Ecuadorean', 'Egyptian', 'Emirati', 'Equatorial Guinean', 
-    'Eritrean', 'Estonian', 'Ethiopian', 'Fijian', 'Filipino', 'Finnish', 'French', 
-    'Gabonese', 'Gambian', 'Georgian', 'German', 'Ghanaian', 'Greek', 'Grenadian', 
-    'Guatemalan', 'Guinean', 'Guinea-Bissauan', 'Guyanese', 'Haitian', 'Herzegovinian', 
-    'Honduran', 'Hungarian', 'Icelander', 'Indian', 'Indonesian', 'Iranian', 
-    'Iraqi', 'Irish', 'Israeli', 'Italian', 'Ivorian', 'Jamaican', 'Japanese', 
-    'Jordanian', 'Kazakh', 'Kenyan', 'Kittian and Nevisian', 'Kuwaiti', 'Kyrgyz', 
-    'Laotian', 'Latvian', 'Lebanese', 'Liberian', 'Libyan', 'Liechtensteiner', 
-    'Lithuanian', 'Luxembourger', 'Macedonian', 'Malagasy', 'Malawian', 'Malaysian', 
-    'Maldivian', 'Malian', 'Maltese', 'Marshallese', 'Mauritanian', 'Mauritian', 
-    'Mexican', 'Micronesian', 'Moldovan', 'Monacan', 'Mongolian', 'Moroccan', 
-    'Mosotho', 'Mozambican', 'Namibian', 'Nauruan', 'Nepalese', 'New Zealander', 
-    'Nicaraguan', 'Nigerian', 'Nigerien', 'North Korean', 'Northern Irish', 
-    'Norwegian', 'Omani', 'Pakistani', 'Palauan', 'Palestinian', 'Panamanian', 
-    'Papua New Guinean', 'Paraguayan', 'Peruvian', 'Polish', 'Portuguese', 
-    'Qatari', 'Romanian', 'Russian', 'Rwandan', 'Saint Lucian', 'Salvadoran', 
-    'Samoan', 'San Marinese', 'Sao Tomean', 'Saudi', 'Scottish', 'Senegalese', 
-    'Serbian', 'Seychellois', 'Sierra Leonean', 'Singaporean', 'Slovak', 
-    'Slovenian', 'Solomon Islander', 'Somali', 'South African', 'South Korean', 
-    'Spanish', 'Sri Lankan', 'Sudanese', 'Surinamer', 'Swazi', 'Swedish', 
-    'Swiss', 'Syrian', 'Taiwanese', 'Tajik', 'Tanzanian', 'Thai', 'Togolese', 
-    'Tongan', 'Trinidadian or Tobagonian', 'Tunisian', 'Turkish', 'Turkmen', 
-    'Tuvaluan', 'Ugandan', 'Ukrainian', 'Uruguayan', 'Uzbek', 'Vanuatuan', 
-    'Vatican', 'Venezuelan', 'Vietnamese', 'Welsh', 'Yemeni', 'Zambian', 'Zimbabwean'
-  ];
-  
-  nationalities.sort();
-  
+    'Argentine', 'Armenian', 'Australian', 'Austrian', 'Azerbaijani', 'Bangladeshi', 
+    'Barbadian', 'Belgian', 'Brazilian', 'British', 'Bulgarian', 'Canadian', 
+    'Chinese', 'Colombian', 'Croatian', 'Cuban', 'Danish', 'Dutch', 'Egyptian', 
+    'Filipino', 'Finnish', 'French', 'German', 'Ghanaian', 'Greek', 'Indian', 
+    'Indonesian', 'Irish', 'Italian', 'Japanese', 'Korean', 'Mexican', 'Nepalese', 
+    'Nigerian', 'Norwegian', 'Pakistani', 'Polish', 'Portuguese', 'Romanian', 
+    'Russian', 'Saudi', 'South African', 'Spanish', 'Sri Lankan', 'Swedish', 
+    'Swiss', 'Thai', 'Turkish', 'Ukrainian', 'Vietnamese', 'Zambian', 'Zimbabwean',
+  ].sort();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const allFieldsFilled = Object.values(formValues).every((value) => value !== '');
+    if (!allFieldsFilled) {
+      alert('Please fill out all fields before submitting.');
+      return;
+    }
     console.log('Preferences submitted:', formValues);
     alert('Preferences submitted! Check the console for details.');
+    setFormValues({
+      field: '',
+      qualification: '',
+      language: '',
+      gender: '',
+      religion: '',
+      nationality: '',
+    });
   };
 
-  if (!showForm) {
-    return null; // Hide the form if `showForm` is false
-  }
+  if (!showForm) return null;
+
+  const styles = {
+    container: { padding: '20px', maxWidth: '500px', margin: '0 auto' },
+    header: { textAlign: 'center', marginBottom: '20px' },
+    select: { display: 'block', width: '100%', marginBottom: '15px', padding: '8px' },
+    closeButton: { background: 'red', color: 'white', border: 'none', cursor: 'pointer' },
+  };
 
   return (
-    <div className="form-container" style={styles.container}>
-      {/* Close Button */}
-      <button 
-        onClick={() => setShowForm(false)} 
-        style={styles.closeButton}
-        aria-label="Close"
-      >
+    <div style={styles.container}>
+      <button onClick={() => setShowForm(false)} style={styles.closeButton}>
         ✖
       </button>
-
       <h2 style={styles.header}>Preferences</h2>
       <form onSubmit={handleSubmit}>
-        {/* Field */}
         <label htmlFor="field">Field</label>
         <select
           id="field"
@@ -117,7 +101,6 @@ const UserPreferencesForm = () => {
           <option value="property">Property Law</option>
         </select>
 
-        {/* Qualification */}
         <label htmlFor="qualification">Qualification</label>
         <select
           id="qualification"
@@ -127,31 +110,28 @@ const UserPreferencesForm = () => {
           style={styles.select}
         >
           <option value="">--Select Qualification--</option>
-          <option value="bachelor">Bachelor's Degree</option>
-          <option value="master">Master's Degree</option>
+          <option value="bachelor">Bachelors Degree</option>
+          <option value="master">Masters Degree</option>
           <option value="phd">PhD</option>
         </select>
 
-        {/* Language */}
-<label htmlFor="language">Preferred Language</label>
-<select
-  id="language"
-  name="language"
-  value={formValues.language}
-  onChange={handleChange}
-  style={styles.select}
->
-  <option value="">--Select Language--</option>
-  {languages.map((language) => (
-    <option key={language} value={language.toLowerCase()}>
-      {language}
-    </option>
-  ))}
-</select>
+        <label htmlFor="language">Preferred Language</label>
+        <select
+          id="language"
+          name="language"
+          value={formValues.language}
+          onChange={handleChange}
+          style={styles.select}
+        >
+          <option value="">--Select Language--</option>
+          {languages.map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
+        </select>
 
-
-        {/* Gender */}
-        <label htmlFor="gender">Preferred Gender</label>
+        <label htmlFor="gender">Gender</label>
         <select
           id="gender"
           name="gender"
@@ -162,99 +142,43 @@ const UserPreferencesForm = () => {
           <option value="">--Select Gender--</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
-          <option value="non-binary">Non-binary</option>
-          <option value="any">No Preference</option>
+          <option value="nonbinary">Non-binary</option>
+          <option value="other">Other</option>
         </select>
 
-        {/* Religion */}
-        <label htmlFor="religion">Preferred Religion</label>
-        <select
+        <label htmlFor="religion">Religion</label>
+        <input
+          type="text"
           id="religion"
           name="religion"
           value={formValues.religion}
           onChange={handleChange}
           style={styles.select}
+          placeholder="Enter Religion"
+        />
+
+        <label htmlFor="nationality">Nationality</label>
+        <select
+          id="nationality"
+          name="nationality"
+          value={formValues.nationality}
+          onChange={handleChange}
+          style={styles.select}
         >
-          <option value="">--Select Religion--</option>
-          <option value="christianity">Christianity</option>
-          <option value="islam">Islam</option>
-          <option value="hinduism">Hinduism</option>
-          <option value="judaism">Judaism</option>
-          <option value="buddhism">Buddhism</option>
+          <option value="">--Select Nationality--</option>
+          {nationalities.map((nationality) => (
+            <option key={nationality} value={nationality}>
+              {nationality}
+            </option>
+          ))}
         </select>
 
-        {/* Nationality */}
-<label htmlFor="nationality">Preferred Nationality</label>
-<select
-  id="nationality"
-  name="nationality"
-  value={formValues.nationality}
-  onChange={handleChange}
-  style={styles.select}
->
-  <option value="">--Select Nationality--</option>
-  {nationalities.map((nationality) => (
-    <option key={nationality} value={nationality.toLowerCase()}>
-      {nationality}
-    </option>
-  ))}
-</select>
-
-
-        {/* Submit Button */}
-        <button type="submit" style={styles.button}>
-          Submit Preferences
+        <button type="submit" style={{ ...styles.select, cursor: 'pointer' }}>
+          Submit
         </button>
       </form>
     </div>
   );
 };
-const styles = {
-  container: {
-    maxWidth: '400px',
-    margin: '0 auto',
-    padding: '20px',
-    border: '1px solid #ccc',
-    borderRadius: '10px',
-    backgroundColor: '#f9f9f9',
-    fontFamily: 'Arial, sans-serif',
-    position: 'relative'
-  },
-  header: {
-    color: 'black',
-    textAlign: 'center',
-    textDecoration: 'underline',
-  },
-    select: {
-    width: '100%',
-    padding: '8px',
-    marginBottom: '15px',
-    border: '1px solid #ccc',
-    borderRadius: '5px'
-  },
-  button: {
-    width: '100%',
-    padding: '10px',
-    backgroundColor: 'rgb(117, 5, 5)',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer'
-  },
-  closeButton: {
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
-    background: 'none',
-    border: 'none',
-    color: 'black',
-    fontSize: '17px',
-    cursor: 'pointer',
-    padding: '5px',
-    borderRadius: '50%',
-    backgroundColor: '#f0f0f0', 
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.2)'
-  }
-};
-export default UserPreferencesForm;
 
+export default UserPreferencesForm;

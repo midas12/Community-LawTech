@@ -1,175 +1,179 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { toast } from "react-toastify";
+import axiosInstance from '../Api/axiosInstance';
+
+// Validation Schema
+const schema = yup.object().shape({
+  firstName: yup.string().required("First Name is required"),
+  lastName: yup.string().required("Last Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+  phone: yup
+    .string()
+    .matches(
+      /^\d{10,15}$/,
+      "Phone number must be between 10 and 15 digits without spaces"
+    )
+    .required("Phone number is required"),
+  barMembershipNumber: yup
+    .string()
+    .required("Bar Membership Number is required"),
+  jurisdictions: yup.string().required("Jurisdictions are required"),
+  terms: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
+});
 
 const LawyerRegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    memorableWord: '',
-    agreeToTerms: false,
-    agreeToNewsletter: false,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      phone: "",
+      barMembershipNumber: "",
+      jurisdictions: "",
+      terms: false,
+    },
   });
 
-  const [errors, setErrors] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match!';
-    }
-
-    if (!formData.agreeToTerms) {
-      newErrors.agreeToTerms = 'You must agree to the terms and conditions!';
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formErrors = validateForm();
-
-    if (Object.keys(formErrors).length === 0) {
-      console.log(formData);
-      alert('Form submitted successfully!');
-      // Add API call or logic to handle form submission
-    } else {
-      setErrors(formErrors);
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await axiosInstance.post("/lawyer-registration", data);
+      toast.success(response.data.message || "Registration successful!");
+      reset();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Registration failed!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="registration-form">
+    <div className="lawyer-registration-form">
       <h2>Lawyer Registration</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Basic Details Section */}
-        <div className="section">
-          <h3>Basic Details</h3>
-          <div className="form-group">
-            <label>First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group">
+          <label>First Name</label>
+          <input
+            type="text"
+            {...register("firstName")}
+            className={`form-control ${errors.firstName ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.firstName?.message}</div>
+        </div>
 
-          <div className="form-group">
-            <label>Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label>Last Name</label>
+          <input
+            type="text"
+            {...register("lastName")}
+            className={`form-control ${errors.lastName ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.lastName?.message}</div>
+        </div>
 
-          <div className="form-group">
-            <label>Username </label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              required
-            />
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            {...register("email")}
+            className={`form-control ${errors.email ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.email?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            {...register("password")}
+            className={`form-control ${errors.password ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.password?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            {...register("confirmPassword")}
+            className={`form-control ${
+              errors.confirmPassword ? "is-invalid" : ""
+            }`}
+          />
+          <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Phone</label>
+          <input
+            type="tel"
+            {...register("phone")}
+            className={`form-control ${errors.phone ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.phone?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Bar Membership Number</label>
+          <input
+            type="text"
+            {...register("barMembershipNumber")}
+            className={`form-control ${
+              errors.barMembershipNumber ? "is-invalid" : ""
+            }`}
+          />
+          <div className="invalid-feedback">
+            {errors.barMembershipNumber?.message}
           </div>
         </div>
 
-        {/* Login Details Section */}
-        <div className="section">
-          <h3>Register for Login</h3>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
-            <small>
-              <input
-                type="checkbox"
-                onChange={() => setShowPassword(!showPassword)}
-              />{' '}
-              Show Password
-            </small>
-          </div>
-
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-              required
-            />
-            {errors.confirmPassword && (
-              <small className="error">{errors.confirmPassword}</small>
-            )}
-          </div>
-
-          <div className="form-group">
-            <label>Memorable Word </label>
-            <input
-              type="text"
-              name="memorableWord"
-              value={formData.memorableWord}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
+        <div className="form-group">
+          <label>Jurisdictions</label>
+          <input
+            type="text"
+            {...register("jurisdictions")}
+            className={`form-control ${
+              errors.jurisdictions ? "is-invalid" : ""
+            }`}
+          />
+          <div className="invalid-feedback">{errors.jurisdictions?.message}</div>
         </div>
 
-        {/* Agreements Section */}
-        <div className="checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              name="agreeToTerms"
-              checked={formData.agreeToTerms}
-              onChange={handleInputChange}
-            />{' '}
-            I agree to the terms and conditions and privacy policy
+        <div className="form-group form-check">
+          <input
+            type="checkbox"
+            {...register("terms")}
+            className={`form-check-input ${errors.terms ? "is-invalid" : ""}`}
+          />
+          <label className="form-check-label">
+            I accept the terms and conditions
           </label>
-          {errors.agreeToTerms && (
-            <small className="error">{errors.agreeToTerms}</small>
-          )}
-
-          <label>
-            <input
-              type="checkbox"
-              name="agreeToNewsletter"
-              checked={formData.agreeToNewsletter}
-              onChange={handleInputChange}
-            />{' '}
-            I agree to receive newsletters
-          </label>
+          <div className="invalid-feedback">{errors.terms?.message}</div>
         </div>
 
-        <button
-          type="submit"
-          className="pink-button"
-          disabled={!formData.agreeToTerms}
-        >
-          Register
+        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+          {isSubmitting ? "Registering..." : "Register"}
         </button>
       </form>
     </div>
