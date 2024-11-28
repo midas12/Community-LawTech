@@ -15,8 +15,8 @@ const AboutUs = () => {
     {
       name: "Hiba El Haroun",
       role: "Outreach Coordinator",
-      description: "Gaby works to connect the firm with the community, ensuring that services reach those in need.",
-      image: "https://images.app.goo.gl/qbViw5ocLzKNDXbx5",
+      description: "Hiba works to connect the firm with the community, ensuring that services reach those in need.",
+      
       linkedin: "#",
       twitter: "#",
     },
