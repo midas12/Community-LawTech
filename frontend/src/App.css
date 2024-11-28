@@ -93,7 +93,7 @@ body {
 
 
 /*On boarding form*/
-.onboarding-form {
+.lawyer-onboarding-form {
   width: 400px;
   margin: 50px auto;
   background-color: #fff;
@@ -281,13 +281,13 @@ body {
   border: 2px solid #da27c8; /* Removes default border */
 }
 .btn-outline-secondary {
-  background-color: #6b6b6bda;
-  color: #000000;
-  border: 2px solid #9c9c9c;
+  background-color: #da27c8;
+  color: #ffffff;
+  border: 2px solid #da27c8;
   transition: background-color 0.3s, color 0.3s;
 }
 .btn-outline-secondary:hover {
-  background-color: #9c9c9c;
+  background-color: #da27c8;
   color: white;
 }
 .chatbot-button {
@@ -295,14 +295,14 @@ body {
   padding: 10px 15px;
   font-size: 14px;
   color: white;
-  background-color: #c56db2;
+  background-color: #da27c8;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 .chatbot-button:hover {
-  background-color: #45a049; /* Slightly darker shade on hover */
+  background-color: #b30098; /* Slightly darker shade on hover */
 }
 
 
@@ -381,5 +381,95 @@ body {
 
 .pink-button:hover {
   background-color: #ff69b4;
+}
+
+/* About Us */
+.about-us {
+  padding: 50px;
+  color: #000000;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.about-us h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.about-us p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* Team Section Layout */
+.team-section {
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow wrapping for smaller screens */
+  justify-content: center; /* Center items horizontally */
+  gap: 20px; /* Space between cards */
+  margin-top: 20px;
+}
+
+/* Team Member Card */
+.team-member-card {
+  flex: 1 1 calc(25% - 20px); /* Responsive sizing (25% width minus gap) */
+  max-width: 300px; /* Optional: set a max width for each card */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Team Member Card Hover Effect */
+.team-member-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Team Member Image */
+.team-member-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+/* Team Member Name */
+.team-member-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Team Member Role */
+.team-member-role {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* Team Member Description */
+.team-member-description {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+/* Social Links */
+.team-member-links a {
+  color: #007bff;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: color 0.2s ease;
+}
+
+.team-member-links a:hover {
+  color: #0056b3;
 }
 
