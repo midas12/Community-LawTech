@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import LawyerRegistrationForm from "./LawyerRegistrationForm"; // Import the form component
 import Header from "./Header"; // Import the Header component
 import Footer from "./Footer"; // Import the Footer component
@@ -8,6 +9,12 @@ import "react-chatbot-kit/build/main.css"; // Import Chatbot styles
 const HomePage = () => {
   const [showForm, setShowForm] = useState(false); // State to control form visibility
   const [showChatbot, setShowChatbot] = useState(false); // State to control chatbot visibility
+
+  const navigate = useNavigate(); // Initialize navigate function for routing
+
+  const handleFindLawyersClick = () => {
+    navigate('/find-lawyer'); // Navigate to the Find Lawyer page
+  };
 
   return (
     <>
@@ -26,7 +33,13 @@ const HomePage = () => {
               immigration, housing, and employment.
             </p>
             <div className="hero-buttons">
-              <button className="btn btn-primary">Find Lawyers</button>
+              {/* Trigger Find Lawyer Page Navigation */}
+              <button 
+                className="btn btn-primary" 
+                onClick={handleFindLawyersClick}
+              >
+                Find Lawyers
+              </button>
               <button className="btn btn-outline-secondary">Donate Now</button>
             </div>
             <button
@@ -39,7 +52,7 @@ const HomePage = () => {
 
           {/* Chatbot conditional rendering */}
           {showChatbot && <Chatbot />}
-          
+
           <div className="job-adverts">
             <h2>Join Us</h2>
             <p>We are always looking for passionate individuals to help us.</p>
@@ -50,7 +63,7 @@ const HomePage = () => {
 
       {/* Display LawyerRegistrationForm if showForm is true */}
       {showForm && <LawyerRegistrationForm />}
-
+      
     </>
   );
 };
