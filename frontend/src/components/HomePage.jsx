@@ -25,12 +25,12 @@ const HomePage = () => {
       {!showForm && (
         <section className="hero">
           <div className="container hero-content">
-            <h2>Empowering Communities with Legal Support</h2>
+            <h2>Empowering Communities with Legal Support for FREE</h2>
             <p>
               Community LawTech connects you with accredited community lawyers
               who understand your needs. Our platform offers culturally and
               linguistically appropriate legal support in areas like
-              immigration, housing, and employment.
+              immigration, housing, and employment for free.
             </p>
             <div className="hero-buttons">
               {/* Trigger Find Lawyer Page Navigation */}
