@@ -15,7 +15,9 @@ import LawyerOnboardingForm from "./components/LawyerOnboardingForm";
 import LawyerRegistrationForm from "./components/LawyerRegistrationForm";
 import UserPreferencesForm from "./components/UserPreferencesForm";
 
+
 const App = () => {
+
   return (
     <Router>
       <Header />
