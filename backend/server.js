@@ -7,6 +7,7 @@ import lawyerRegistrationRoutes from "./routes/lawyerRegistrationRoutes.js";
 
 const app = express();
 const PORT = 5000;
+
 app.use("/api/lawyer-registration", lawyerRegistrationRoutes);
 
 app.use(bodyParser.json());

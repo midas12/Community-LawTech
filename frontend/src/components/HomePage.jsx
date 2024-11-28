@@ -25,17 +25,17 @@ const HomePage = () => {
       {!showForm && (
         <section className="hero">
           <div className="container hero-content">
-            <h2>Empowering Communities with Legal Support</h2>
+            <h2>Offering Free Legal Support To Marginalised Communities </h2>
             <p>
-              Community LawTech connects you with accredited community lawyers
-              who understand your needs. Our platform offers culturally and
-              linguistically appropriate legal support in areas like
-              immigration, housing, and employment.
+              CLawT will link you to a lawyer that speaks the same language you
+              speak, from the same cultural or ethnic background like you and
+              one who understands your journey and can effectively support you
+              without judging you.
             </p>
             <div className="hero-buttons">
               {/* Trigger Find Lawyer Page Navigation */}
-              <button 
-                className="btn btn-primary" 
+              <button
+                className="btn btn-primary"
                 onClick={handleFindLawyersClick}
               >
                 Find Lawyers
@@ -63,7 +63,6 @@ const HomePage = () => {
 
       {/* Display LawyerRegistrationForm if showForm is true */}
       {showForm && <LawyerRegistrationForm />}
-      
     </>
   );
 };

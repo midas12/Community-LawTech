@@ -10,11 +10,11 @@ import AboutUs from "./components/AboutUs";
 import FindLawyer from "./components/FindLawyer";
 import SupportOurMission from "./components/SupportOurMission";
 
-// Forms
+// Formz
 import LawyerOnboardingForm from "./components/LawyerOnboardingForm";
 import LawyerRegistrationForm from "./components/LawyerRegistrationForm";
 import UserPreferencesForm from "./components/UserPreferencesForm";
-
+import Login from "./components/Login";
 
 const App = () => {
 
@@ -32,6 +32,7 @@ const App = () => {
           <Route path="/lawyer-onboarding" element={<LawyerOnboardingForm />} />
           <Route path="/lawyer-registration" element={<LawyerRegistrationForm />} />
           <Route path="/user-preferences" element={<UserPreferencesForm />} />
+          <Route path="/log-in" element={<Login />} />
         </Routes>
       </main>
       <Footer />

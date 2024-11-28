@@ -34,7 +34,7 @@ function Header({ setShowForm }) {
           <button className="btn btn-outline-light me-2" onClick={() => navigate("/lawyer-registration")}>
             Get Involved
           </button>
-          <button className="btn btn-login" onClick={() => navigate("/login")}>
+          <button className="btn btn-login" onClick={() => navigate("/log-in")}>
             Login
           </button>
         </div>
