@@ -1,6 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import LawyerRegistrationForm from "./LawyerRegistrationForm"; // Import the form component
+import { useNavigate, Link } from "react-router-dom"; // Import Link for routing
 
 function Header({ setShowForm }) {
   const navigate = useNavigate(); // Initialize the navigate function
@@ -21,10 +20,12 @@ function Header({ setShowForm }) {
           <div className="logo fw-bold fs-3">Law Tech</div>
 
           <nav className="nav">
-            <a href="#home" className="nav-link text-white" onClick={handleHomeClick}>
+            <Link to="/" className="nav-link text-white" onClick={handleHomeClick}>
               Home
-            </a>
-            <a href="#about" className="nav-link text-white">About Us</a>
+            </Link>
+            <Link to="/about-us" className="nav-link text-white">
+              About Us
+            </Link>
             <a href="#services" className="nav-link text-white">Services</a>
             <a href="#contact" className="nav-link text-white">Donate</a>
           </nav>
