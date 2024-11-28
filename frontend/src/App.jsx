@@ -9,6 +9,7 @@ import OurLegalSupport from "./components/OurLegalSupport";
 import AboutUs from "./components/AboutUs";
 import FindLawyer from "./components/FindLawyer";
 import SupportOurMission from "./components/SupportOurMission";
+import LoginPage from './components/LoginPage';
 
 // Forms
 import LawyerOnboardingForm from "./components/LawyerOnboardingForm";
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/lawyer-onboarding" element={<LawyerOnboardingForm />} />
           <Route path="/lawyer-registration" element={<LawyerRegistrationForm />} />
           <Route path="/user-preferences" element={<UserPreferencesForm />} />
+          <Route path="/login-page" element={<LoginPage/>} />
         </Routes>
       </main>
       <Footer />
