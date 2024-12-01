@@ -1,8 +1,8 @@
 /* General Styles */
 body {
-/*   background: url('https://wallpapercave.com/wp/3qiHO2W.jpg') center center fixed; */
+/*   background: url('homepage.png') center center fixed; */
 /*   background-repeat: no-repeat; */
-/*   background-size: cover; */
+/*  background-size: cover; */
   background-color: #fff;
   font-family: Arial, sans-serif;
   margin: 0;
@@ -63,7 +63,7 @@ body {
 }
 .header-box nav a:hover {
   text-decoration: underline; 
-  color: #da27c8;; 
+  color: #5e013f;; 
 }
 /* Header Buttons */
 .btn {
@@ -81,9 +81,9 @@ body {
 }
 .header-buttons .btn {
   margin-left: 10px;
-  background-color: #da27c8; /* Updated button color */
+  background-color: #5e013f; /* Updated button color */
   color: white; /* White text */
-  border: 2px solid #da27c8; /* Removes default border */
+  border: 2px solid #5e013f; /* Removes default border */
   border-radius: 4px; /* Adds slight rounding */
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -113,13 +113,13 @@ body {
 /*Lawyer registration form*/
 .lawyer-registration-form {
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 40px;
   max-width: 500px;
   margin: 50px auto;
   font-size: 16px;
-  margin-top: 150px;
+  margin-top: 100px;
 }
 .lawyer-registration-form h2 {
   text-align: center;
@@ -144,7 +144,6 @@ body {
   border-radius: 5px;
   outline: none;
   transition: border-color 0.3s ease;
-  border: 1px solid #0f0f0f;
   color: #000000;
   background-color: #fffefe;
 }
@@ -174,14 +173,14 @@ body {
   font-size: 16px;
   font-weight: bold;
   color: #ffffff;
-  background-color: #da27c8;
+  background-color: #5e013f;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .btn-submit:hover {
-  background-color: #da27c8;
+  background-color: #b30098;
   transform: scale(1.02);
 }
 .btn-submit:disabled {
@@ -197,7 +196,7 @@ body {
   bottom: 0; 
   left: 0; 
   padding: 10px 20px; 
-  background-color: #f5ffda; 
+  background-color: #ffffff; 
   z-index: 1000; 
 }
 .footer-line {
@@ -229,7 +228,7 @@ body {
 }
 .terms-link:hover {
   text-decoration: underline; 
-  color: #da27c8;
+  color: #5e013f;
 }
 
 
@@ -238,24 +237,30 @@ body {
   color: rgb(22, 22, 20);
   padding: 120px 20px;
   text-align: center;
-  height: 100vh;
+  height: 120vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: url('assets/images/homepageImage.jpg')
+  center center/cover no-repeat;
 }
 .hero .container {
   max-width: 800px;
   margin: 0 auto;
+  height: 110vh;
+
 }
 .hero h2 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 20px;
+  color: #fff;
 }
 .hero p {
   font-size: 1.2rem;
   margin-bottom: 30px;
+  color: #fff;
 }
 .hero-buttons {
   display: flex; /* Ensures the buttons are laid out horizontally */
@@ -274,21 +279,21 @@ body {
   transition: background-color 0.3s;
 }
 .btn:hover {
-  background-color: #da27c8;
+  background-color: #b30098;
 }
 .btn-primary {
-  background-color: #da27c8; /* Updated primary button color */
+  background-color: #5e013f; /* Updated primary button color */
   color: white; /* White text */
-  border: 2px solid #da27c8; /* Removes default border */
+  border: 2px solid #5e013f; /* Removes default border */
 }
 .btn-outline-secondary {
-  background-color: #da27c8;
+  background-color: #5e013f;
   color: #ffffff;
-  border: 2px solid #da27c8;
+  border: 2px solid #5e013f;
   transition: background-color 0.3s, color 0.3s;
 }
 .btn-outline-secondary:hover {
-  background-color: #da27c8;
+  background-color: #b30098;
   color: white;
 }
 .chatbot-button {
@@ -296,7 +301,7 @@ body {
   padding: 10px 15px;
   font-size: 14px;
   color: white;
-  background-color: #da27c8;
+  background-color: #5e013f;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -308,7 +313,7 @@ body {
 
 
 
-.services-page {
+/* .services-page {
   padding: 20px;
 }
 
@@ -382,7 +387,7 @@ body {
 
 .pink-button:hover {
   background-color: #ff69b4;
-}
+} */
 
 
 /* About Us */
@@ -471,6 +476,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f99a;
   padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 h1 {
   text-align: center;
@@ -487,14 +493,14 @@ h1 {
   padding: 10px;
   font-size: 16px;
   width: 300px;
-  border: 1px solid #ffffff;
+  border: 1px solid #c2c2c2;
   border-radius: 5px;
   background-color: #ffffff;
   color: #000;
 }
 .search-section button {
   padding: 10px 20px;
-  background-color: #da27c8;
+  background-color: #5e013f;
   color: white;
   font-size: 16px;
   border: none;
@@ -502,7 +508,7 @@ h1 {
   cursor: pointer;
 }
 .search-section button:hover {
-  background-color: #da27c8;
+  background-color: #b30098;
 }
 .lawyer-list {
   display: grid;
@@ -605,61 +611,115 @@ h1 {
 }
 
 
-/* Login Page Container */
-.login-page {
-  max-width: 400px;
-  margin: 100px auto;
-  background: white;
-  padding: 20px 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/*Login*/
+.login-container {
+  display: flex;
+  height: 100vh;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
-/* Form Heading */
-.login-page h2 {
-  text-align: center;
-  color: #000000;
-}
-/* Form Styles */
 .login-form {
+  flex: 1;
+  padding: 50px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-/* Form Group */
+.form-title {
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: #000;
+}
 .form-group {
   margin-bottom: 15px;
 }
 .form-group label {
+  font-size: 14px;
+  margin-bottom: px;
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #000000;
+  color: #000;
 }
-.form-group input {
+.input-field {
   width: 95%;
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #818181;
-  border-radius: 4px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   background-color: #fff;
   color: #000;
 }
-/* Error Message */
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
+.password-container {
+  position: relative;
 }
-/* Login Button */
-.login-button {
-  background-color: #da27c8;
-  color: white;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
+.password-container .input-field {
+  width: 95%;
+  background-color: #fff;
+  color: #000;
+}
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  margin-top: 10px;
+  color: #999;
 }
-.login-button:hover {
-  background-color: #da27c8;
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #000;
 }
+.forgot-password {
+  color: #000;
+  font-size: 14px;
+  text-decoration: none;
+}
+.forgot-password:hover {
+  text-decoration: underline;
+}
+.sign-in-button {
+  width: 99%;
+  padding: 10px;
+  background-color: #5e013f;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.sign-in-button:hover {
+  background-color: #b30098;
+}
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #000;
+}
+.signup-link a {
+  color: #5e013f;
+  text-decoration: none;
+}
+.signup-link a:hover {
+  text-decoration: underline;
+}
+.login-image {
+  flex: 1;
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('assets/images/homepageImage.jpg') center center/cover no-repeat;
+  opacity: 0.7; /* Adjust the opacity to make it see-through */
+  clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+}
+.login-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
