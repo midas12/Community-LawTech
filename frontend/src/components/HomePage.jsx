@@ -25,6 +25,7 @@ const HomePage = () => {
       {!showForm && (
         <section className="hero">
           <div className="container hero-content">
+            <image src='/assets/images/homepageImage.jpg'/>
             <h2>Offering Free Legal Support To Marginalised Communities </h2>
             <p>
               CLawT will link you to a lawyer that speaks the same language you
@@ -53,11 +54,11 @@ const HomePage = () => {
           {/* Chatbot conditional rendering */}
           {showChatbot && <Chatbot />}
 
-          <div className="job-adverts">
+          {/* <div className="job-adverts">
             <h2>Join Us</h2>
             <p>We are always looking for passionate individuals to help us.</p>
             <button className="btn btn-primary">View Positions</button>
-          </div>
+          </div> */}
         </section>
       )}
 
