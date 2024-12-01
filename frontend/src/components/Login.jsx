@@ -1,58 +1,56 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const App = () => {
-  const [formValues, setFormValues] = useState({ email: '', password: '' });
-  const [errorMessage, setErrorMessage] = useState('');
+const Login = ({ setShowForm }) => {
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/login', formValues);
-      alert('Login successful! Token: ' + response.data.token);
-    } catch (error) {
-      setErrorMessage(error.response?.data?.message || 'Something went wrong!');
-    }
+  const handleSignupClick = (e) => {
+    e.preventDefault(); // Prevent the default anchor tag behavior
+    navigate("/lawyer-registration"); // Programmatically navigate
+    setShowForm(true); // Set form visibility if needed
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px' }}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} style={{ width: '300px', textAlign: 'center' }}>
-        <div style={{ marginBottom: '15px' }}>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formValues.email}
-            onChange={handleChange}
-            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
-            required
-          />
-        </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formValues.password}
-            onChange={handleChange}
-            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
-            required
-          />
-        </div>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        <button type="submit" style={{ padding: '10px 20px', cursor: 'pointer' }}>
-          Login
-        </button>
-      </form>
+    <div className="login-container">
+      <div className="login-form">
+        <h1 className="form-title">Login</h1>
+        <form>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="text" className="input-field" />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <div className="password-container">
+              <input type="password" className="input-field" />
+              <span className="toggle-password"></span>
+            </div>
+          </div>
+          <div className="form-actions">
+            <div>
+              <input type="checkbox" id="rememberMe" />
+              <label htmlFor="rememberMe">Remember me</label>
+            </div>
+            <a href="/forgot-password" className="forgot-password">
+              Forgot Password?
+            </a>
+          </div>
+          <button type="submit" className="sign-in-button">
+            Sign in
+          </button>
+        </form>
+        <p className="signup-link">
+          Don’t have an account?{" "}
+          <a href="/signup" onClick={handleSignupClick}>
+            Sign up
+          </a>
+        </p>
+      </div>
+      <div className="login-image">
+        <image src="/assets/images/homepageImage.jpg" />
+      </div>
     </div>
   );
 };
 
-export default App;
+export default Login;
