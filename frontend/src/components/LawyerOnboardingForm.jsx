@@ -3,7 +3,8 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import axiosInstance from '../Api/axiosInstance';
+import axiosInstance from "../Api/axiosInstance"
+import "../App.css"; // Centralized CSS
 
 const schema = yup.object().shape({
   firstName: yup.string().required("First Name is required"),
@@ -26,6 +27,10 @@ const schema = yup.object().shape({
   officePostcode: yup.string().required("Office Postcode is required"),
   preferredCommunication: yup.string().required("Preferred Communication Method is required"),
   references: yup.array().of(yup.string().required("Reference is required")).min(3, "Three references are required"),
+  barMembershipProof: yup.mixed().nullable().required("Bar Membership Proof is required"),
+  profilePicture: yup.mixed().nullable().required("Profile Picture is required"),
+  educationCertifications: yup.mixed().nullable().required("Education Certifications are required"),
+  otherDocuments: yup.mixed().nullable().required("Other Documents are required"),
 });
 
 const LawyerOnboardingForm = () => {
@@ -42,28 +47,20 @@ const LawyerOnboardingForm = () => {
       emergencyContact: "",
       barMembershipNumber: "",
       jurisdictions: "",
-      specialisation: [],
-      specialisationDates: {},
-      specialisationExperience: {},
-      lawFirms: "",
       lawSchool: "",
       graduationYear: "",
-      additionalDegrees: "",
       position: "",
       department: "",
       startDate: "",
       employmentType: "",
-      barMembershipProof: null,
-      backgroundCheck: false,
-      insuranceDetails: "",
       officeLocation: "",
       officePostcode: "",
       preferredCommunication: "",
       references: ["", "", ""],
-      affiliations: "",
-      nationalities: "",
-      languages: [],
-      religion: "",
+      barMembershipProof: null,
+      profilePicture: null,
+      educationCertifications: null,
+      otherDocuments: null,
     },
   });
 
@@ -74,14 +71,18 @@ const LawyerOnboardingForm = () => {
     try {
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
-        if (key === "barMembershipProof" && data[key][0]) {
-          formData.append(key, data[key][0]);
+        if (data[key] instanceof File || Array.isArray(data[key])) {
+          formData.append(key, data[key]);
         } else {
           formData.append(key, data[key]);
         }
       });
 
-      const response = await axiosInstance.post("/lawyer-onboarding", formData);
+      const response = await axiosInstance.post("/lawyer-onboarding", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       toast.success(response.data.message || "Onboarding Successful!");
       reset();
     } catch (error) {
@@ -96,30 +97,39 @@ const LawyerOnboardingForm = () => {
       <h2>Lawyer Onboarding</h2>
       <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
         <h3>Personal Information</h3>
+        {/* Other input fields */}
         <div className="form-group">
           <label>First Name</label>
           <input type="text" {...register("firstName")} className={`form-control ${errors.firstName ? "is-invalid" : ""}`} />
           <div className="invalid-feedback">{errors.firstName?.message}</div>
         </div>
         
-        {/* Add similar fields for all remaining fields following the same structure */}
+        {/* File Uploads */}
+        <h3>Uploads</h3>
         <div className="form-group">
-          <label>References</label>
-          <Controller
-            name="references"
-            control={control}
-            render={({ field }) => (
-              field.value.map((ref, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  {...register(`references[${index}]`)}
-                  className={`form-control ${errors.references?.[index] ? "is-invalid" : ""}`}
-                />
-              ))
-            )}
-          />
+          <label>Bar Membership Proof</label>
+          <input type="file" {...register("barMembershipProof")} className={`form-control ${errors.barMembershipProof ? "is-invalid" : ""}`} />
+          <div className="invalid-feedback">{errors.barMembershipProof?.message}</div>
         </div>
+
+        <div className="form-group">
+          <label>Profile Picture</label>
+          <input type="file" {...register("profilePicture")} className={`form-control ${errors.profilePicture ? "is-invalid" : ""}`} />
+          <div className="invalid-feedback">{errors.profilePicture?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Education Certifications</label>
+          <input type="file" {...register("educationCertifications")} className={`form-control ${errors.educationCertifications ? "is-invalid" : ""}`} />
+          <div className="invalid-feedback">{errors.educationCertifications?.message}</div>
+        </div>
+
+        <div className="form-group">
+          <label>Other Documents</label>
+          <input type="file" {...register("otherDocuments")} className={`form-control ${errors.otherDocuments ? "is-invalid" : ""}`} />
+          <div className="invalid-feedback">{errors.otherDocuments?.message}</div>
+        </div>
+
         <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>

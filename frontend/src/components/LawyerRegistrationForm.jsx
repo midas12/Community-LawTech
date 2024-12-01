@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import axiosInstance from '../Api/axiosInstance';
-import LawyerOnboardingForm from './LawyerOnboardingForm';
+import axiosInstance from "../Api/axiosInstance";
+import LawyerOnboardingForm from "./LawyerOnboardingForm";
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -26,9 +26,7 @@ const schema = yup.object().shape({
       "Phone number must be between 10 and 15 digits without spaces"
     )
     .required("Phone number is required"),
-  barMembershipNumber: yup
-    .string()
-    .required("Bar Membership Number is required"),
+  barMembershipNumber: yup.string().required("Bar Membership Number is required"),
   jurisdictions: yup.string().required("Jurisdictions are required"),
   terms: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
 });
@@ -63,18 +61,18 @@ const LawyerRegistrationForm = () => {
       const response = await axiosInstance.post("/lawyer-registration", data);
       toast.success(response.data.message || "Registration successful!");
       reset();
+      setShowOnboardingForm(true);
     } catch (error) {
       toast.error(error.response?.data?.message || "Registration failed!");
     } finally {
       setIsSubmitting(false);
-      setShowOnboardingForm(true);
     }
   };
 
   return (
     <div className="lawyer-registration-form">
       <h2>Lawyer Registration</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="registration-form">
         <div className="form-group">
           <label>First Name</label>
           <input
@@ -120,9 +118,7 @@ const LawyerRegistrationForm = () => {
           <input
             type="password"
             {...register("confirmPassword")}
-            className={`form-control ${
-              errors.confirmPassword ? "is-invalid" : ""
-            }`}
+            className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
           />
           <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
         </div>
@@ -142,13 +138,9 @@ const LawyerRegistrationForm = () => {
           <input
             type="text"
             {...register("barMembershipNumber")}
-            className={`form-control ${
-              errors.barMembershipNumber ? "is-invalid" : ""
-            }`}
+            className={`form-control ${errors.barMembershipNumber ? "is-invalid" : ""}`}
           />
-          <div className="invalid-feedback">
-            {errors.barMembershipNumber?.message}
-          </div>
+          <div className="invalid-feedback">{errors.barMembershipNumber?.message}</div>
         </div>
 
         <div className="form-group">
@@ -156,9 +148,7 @@ const LawyerRegistrationForm = () => {
           <input
             type="text"
             {...register("jurisdictions")}
-            className={`form-control ${
-              errors.jurisdictions ? "is-invalid" : ""
-            }`}
+            className={`form-control ${errors.jurisdictions ? "is-invalid" : ""}`}
           />
           <div className="invalid-feedback">{errors.jurisdictions?.message}</div>
         </div>
@@ -169,20 +159,18 @@ const LawyerRegistrationForm = () => {
             {...register("terms")}
             className={`form-check-input ${errors.terms ? "is-invalid" : ""}`}
           />
-          <label className="form-check-label">
-            I accept the terms and conditions
-          </label>
+          <label className="form-check-label">I accept the terms and conditions</label>
           <div className="invalid-feedback">{errors.terms?.message}</div>
         </div>
 
-        <button type="submit" className=" btn-submit" disabled={isSubmitting}>
+        <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Register"}
         </button>
       </form>
 
       {showOnboardingForm && (
         <div className="form-container">
-          <LawyerOnboardingForm /> 
+          <LawyerOnboardingForm />
         </div>
       )}
     </div>

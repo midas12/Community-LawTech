@@ -1,15 +1,16 @@
-import { addLawyer } from "../firebaseService.js";
+import { firestore } from "../firebaseService.js";
 
-export const registerLawyer = async (req, res) => {
+export const saveLawyerRegistration = async (req, res) => {
   try {
-    const lawyerData = req.body;
+    const data = req.body;
 
-    // Save data to Firebase or any other database
-    const newLawyer = await addLawyer("lawyers", lawyerData);
+    // Save data to Firestore
+    const collectionRef = firestore.collection("lawyerRegistrations");
+    await collectionRef.add(data);
 
-    res.status(201).json({ message: "Lawyer registered successfully!", data: newLawyer });
+    res.status(201).json({ message: "Registration successful!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to register lawyer." });
+    res.status(500).json({ message: "Registration failed." });
   }
 };
