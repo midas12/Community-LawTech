@@ -1,8 +1,9 @@
 import express from "express";
-import { saveLawyerRegistration } from "../controllers/lawyerRegistrationController.js";
+import { registerLawyer } from "../controllers/lawyerRegistrationController.js";
 
 const router = express.Router();
 
-router.post("/", saveLawyerRegistration);
+// POST route for lawyer registration
+router.post("/", registerLawyer);
 
 export default router;

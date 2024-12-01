@@ -1,5 +1,5 @@
-import admin from 'firebase-admin';
-
+import admin from "firebase-admin";
+import serviceAccount from "./serviceAccountKey.json";
 // Use your provided service account keys directly
 const serviceAccount = {
     type: "service_account",
@@ -38,8 +38,16 @@ export const getNearbyLawyers = async (postcode) => {
   // Replace this with real distance calculation logic
   return lawyers.filter((lawyer) => lawyer.postcode === postcode);
 };
-
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 
 // Export Firestore database instance
-export const db = admin.firestore();
+
+export const firestore = admin.firestore();
+
+
+
