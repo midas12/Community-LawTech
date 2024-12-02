@@ -1,9 +1,8 @@
-import express from "express";
-import { registerLawyer } from "../controllers/lawyerRegistrationController.js";
+import { Router } from 'express';
+import { registerLawyer } from '../controllers/lawyerRegistrationController.js';
 
-const router = express.Router();
+const router = Router();
 
-// POST route for lawyer registration
-router.post("/", registerLawyer);
+router.post('/register', registerLawyer);
 
 export default router;

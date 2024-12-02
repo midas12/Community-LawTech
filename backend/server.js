@@ -1,18 +1,32 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import missionRoutes from './routes/missionRoutes.js';
-import supportOurMissionRoutes from "./routes/supportOurMissionRoutes.js";
-//import ourLegalSupportRoutes from './routes/ourLegalSupportRoutes.js';
-import lawyerRegistrationRoutes from "./routes/lawyerRegistrationRoutes.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.use("/api/lawyer-registration", lawyerRegistrationRoutes);
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
+// Import routes
+import lawyerRegistrationRoutes from './routes/lawyerRegistrationRoutes.js';
+import missionRoutes from './routes/missionRoutes.js';
+
+// Use routes
+app.use('/api/lawyers', lawyerRegistrationRoutes);
 app.use('/api/missions', missionRoutes);
-app.use("/api/support-our-mission", supportOurMissionRoutes);
-//app.use('/api/ourLegalSupport', ourLegalSupportRoutes);
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Serve static files from the frontend
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../frontend', 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

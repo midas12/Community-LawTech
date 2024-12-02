@@ -15,6 +15,9 @@ import LawyerOnboardingForm from "./components/LawyerOnboardingForm";
 import LawyerRegistrationForm from "./components/LawyerRegistrationForm";
 import UserPreferencesForm from "./components/UserPreferencesForm";
 import Login from "./components/Login";
+import AdminDashboard from "./components/AdminDashboard";
+import AdminManageLawyers from "./components/AdminManageLawyers";
+import AdminLoginForm from "./components/AdminLoginForm";
 
 const App = () => {
 
@@ -24,6 +27,10 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/lawyers" element={<AdminManageLawyers />} />
+          <Route path="/Admin/login" element={<AdminLoginForm/>} />
+
           <Route path="/mission" element={<Mission />} />
           <Route path="/our-legal-support" element={<OurLegalSupport />} />
           <Route path="/about-us" element={<AboutUs />} />
