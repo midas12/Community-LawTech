@@ -35,4 +35,74 @@ const addSubscription = async (subscriptionData) => {
   }
 };
 
-export { db, addSubscription };
+
+// Function to add feedback
+const addFeedback = async (feedbackData) => {
+  try {
+    const docRef = await db.collection('feedback').add(feedbackData);
+    console.log('Feedback added with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding feedback: ', error);
+    throw error;
+  }
+};
+
+// Function to add a funder
+const addFunder = async (funderData) => {
+  try {
+    const docRef = await db.collection('funders').add(funderData);
+    console.log('Funder added with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding funder: ', error);
+    throw error;
+  }
+};
+
+// Function to add assistance
+const addAssistance = async (assistanceData) => {
+  try {
+    const docRef = await db.collection('assistance').add(assistanceData);
+    console.log('Assistance added with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding assistance: ', error);
+    throw error;
+  }
+};
+
+// Function to add terms
+const addTerms = async (termsData) => {
+  try {
+    const docRef = await db.collection('terms').add(termsData);
+    console.log('Terms added with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding terms: ', error);
+    throw error;
+  }
+};
+
+// Function to add training
+const addTraining = async (trainingData) => {
+  try {
+    const docRef = await db.collection('training').add(trainingData);
+    console.log('Training added with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding training: ', error);
+    throw error;
+  }
+};
+
+// Export the Firestore database and functions
+export {
+  db,
+  addSubscription,
+  addFeedback,
+  addFunder,
+  addAssistance,
+  addTerms,
+  addTraining
+};
