@@ -1,10 +1,13 @@
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 
 function Header({ setShowForm }) {
   const navigate = useNavigate(); // Initialize the navigate function
+  const [showLoginDropdown, setShowLoginDropdown] = useState(false); // Manage dropdown visibility
 
-  const handleGetInvolvedClick = () => {
-    setShowForm(true); // Show the form when clicked
+  const handleLoginClick = (path) => {
+    setShowLoginDropdown(false); // Close the dropdown
+    navigate(path); // Navigate to the selected login page
   };
 
   return (
@@ -31,12 +34,50 @@ function Header({ setShowForm }) {
           <button className="btn btn-primary me-2" onClick={() => navigate("/find-lawyer")}>
             Search Lawyers
           </button>
-          <button className="btn btn-outline-light me-2" onClick={() => navigate("/lawyer-registration")}>
+          <button
+            className="btn btn-outline-light me-2"
+            onClick={() => navigate("/lawyer-registration")}
+          >
             Get Involved
           </button>
-          <button className="btn btn-login" onClick={() => navigate("/login")}>
-            Login
-          </button>
+
+          {/* Login Dropdown */}
+          <div className="dropdown">
+            <button
+              className="btn btn-login dropdown-toggle"
+              onClick={() => setShowLoginDropdown(!showLoginDropdown)}
+            >
+              Login
+            </button>
+            {showLoginDropdown && (
+              <div className="dropdown-menu dropdown-menu-right show">
+                <button
+                  className="dropdown-item"
+                  onClick={() => handleLoginClick("/user-login")}
+                >
+                  User Login
+                </button>
+                <button
+                  className="dropdown-item"
+                  onClick={() => handleLoginClick("/admin-login")}
+                >
+                  Admin Login
+                </button>
+                <button
+                  className="dropdown-item"
+                  onClick={() => handleLoginClick("/lawyer-login")}
+                >
+                  Lawyers Login
+                </button>
+                <button
+                  className="dropdown-item"
+                  onClick={() => handleLoginClick("/funders-login")}
+                >
+                  Funders Login
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

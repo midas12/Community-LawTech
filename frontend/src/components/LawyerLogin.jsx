@@ -75,12 +75,6 @@ const FindLawyer = () => {
     if (filterStage < 6) setFilterStage(filterStage + 1);
   };
 
-  const handleLawyerSelect = (lawyer) => {
-    setSelectedLawyer(lawyer);
-    const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${lawyer.location.lat},${lawyer.location.lng}`;
-    setMapUrl(mapLink);
-  };
-
   const handleFormSubmit = () => {
     console.log("Selected Filters:", filters);
     console.log("Filtered Lawyers:", lawyers);

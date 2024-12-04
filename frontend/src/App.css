@@ -723,3 +723,45 @@ h1 {
   display: block;
 }
 
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: block;
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #000000;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.google-translate-element {
+  display: inline-block;
+  margin: 10px 0;
+  width: auto;
+  font-size: 1rem;
+}
+
+/* Override specific styles to prevent conflicts */
+.goog-te-banner-frame.skiptranslate,
+body .goog-te-gadget-icon {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+.goog-te-gadget {
+  color: #333 !important;
+}

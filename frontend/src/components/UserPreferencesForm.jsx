@@ -1,184 +1,159 @@
-import { useState } from 'react';
-import axiosInstance from '../Api/axiosInstance';
+import React, { useState } from "react";
+import axiosInstance from "../Api/axiosInstance";
+import "../App.css";
 
-const UserPreferencesForm = () => {
-  const [formValues, setFormValues] = useState({
-    field: '',
-    qualification: '',
-    language: '',
-    gender: '',
-    religion: '',
-    nationality: '',
+const FindLawyer = () => {
+  const [postcode, setPostcode] = useState("");
+  const [lawyers, setLawyers] = useState([]);
+  const [preferences, setPreferences] = useState({
+    field: "",
+    language: "",
+    religion: "",
+    nationality: "",
+    gender: "",
   });
+  const [selectedLawyer, setSelectedLawyer] = useState(null);
+  const [mapUrl, setMapUrl] = useState("");
 
-  const [showForm, setShowForm] = useState(true);
-
-  const languages = [
-    'Afrikaans', 'Albanian', 'Amharic', 'Arabic', 'Armenian', 'Azerbaijani', 
-    'Bengali', 'Bosnian', 'Bulgarian', 'Catalan', 'Cebuano', 'Chinese', 
-    'Croatian', 'Czech', 'Danish', 'Dutch', 'English', 'Esperanto', 'Estonian', 
-    'Finnish', 'French', 'Galician', 'Georgian', 'German', 'Greek', 'Gujarati', 
-    'Haitian Creole', 'Hausa', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 
-    'Igbo', 'Indonesian', 'Irish', 'Italian', 'Japanese', 'Javanese', 'Kannada', 
-    'Kazakh', 'Khmer', 'Korean', 'Kurdish', 'Kyrgyz', 'Lao', 'Latin', 'Latvian', 
-    'Lithuanian', 'Luxembourgish', 'Macedonian', 'Malagasy', 'Malay', 
-    'Malayalam', 'Maltese', 'Maori', 'Marathi', 'Mongolian', 'Nepali', 
-    'Norwegian', 'Odia', 'Pashto', 'Persian', 'Polish', 'Portuguese', 'Punjabi', 
-    'Romanian', 'Russian', 'Samoan', 'Scots Gaelic', 'Serbian', 'Sesotho', 
-    'Shona', 'Sindhi', 'Sinhala', 'Slovak', 'Slovenian', 'Somali', 'Spanish', 
-    'Sundanese', 'Swahili', 'Swedish', 'Tajik', 'Tamil', 'Tatar', 'Telugu', 
-    'Thai', 'Turkish', 'Turkmen', 'Ukrainian', 'Urdu', 'Uyghur', 'Uzbek', 
-    'Vietnamese', 'Welsh', 'Xhosa', 'Yoruba',
-  ].sort();
-
-  const nationalities = [
-    'Afghan', 'Albanian', 'Algerian', 'American', 'Andorran', 'Angolan', 
-    'Argentine', 'Armenian', 'Australian', 'Austrian', 'Azerbaijani', 'Bangladeshi', 
-    'Barbadian', 'Belgian', 'Brazilian', 'British', 'Bulgarian', 'Canadian', 
-    'Chinese', 'Colombian', 'Croatian', 'Cuban', 'Danish', 'Dutch', 'Egyptian', 
-    'Filipino', 'Finnish', 'French', 'German', 'Ghanaian', 'Greek', 'Indian', 
-    'Indonesian', 'Irish', 'Italian', 'Japanese', 'Korean', 'Mexican', 'Nepalese', 
-    'Nigerian', 'Norwegian', 'Pakistani', 'Polish', 'Portuguese', 'Romanian', 
-    'Russian', 'Saudi', 'South African', 'Spanish', 'Sri Lankan', 'Swedish', 
-    'Swiss', 'Thai', 'Turkish', 'Ukrainian', 'Vietnamese', 'Zambian', 'Zimbabwean',
-  ].sort();
-
-  const handleChange = (e) => {
+  // Handle input changes for preferences
+  const handlePreferenceChange = (e) => {
     const { name, value } = e.target;
-    setFormValues((prevValues) => ({
-      ...prevValues,
+    setPreferences((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const allFieldsFilled = Object.values(formValues).every((value) => value !== '');
-    if (!allFieldsFilled) {
-      alert('Please fill out all fields before submitting.');
-      return;
+  // Fetch lawyers based on postcode and preferences
+  const handleSearch = async () => {
+    try {
+      const response = await axiosInstance.get("/lawyers/search", {
+        params: {
+          postcode,
+          ...preferences,
+        },
+      });
+      setLawyers(response.data);
+    } catch (error) {
+      console.error("Error fetching lawyers:", error);
     }
-    console.log('Preferences submitted:', formValues);
-    alert('Preferences submitted! Check the console for details.');
-    setFormValues({
-      field: '',
-      qualification: '',
-      language: '',
-      gender: '',
-      religion: '',
-      nationality: '',
-    });
   };
 
-  if (!showForm) return null;
-
-  const styles = {
-    container: { padding: '20px', maxWidth: '500px', margin: '0 auto' },
-    header: { textAlign: 'center', marginBottom: '20px' },
-    select: { display: 'block', width: '100%', marginBottom: '15px', padding: '8px' },
-    closeButton: { background: 'red', color: 'white', border: 'none', cursor: 'pointer' },
+  const handleLawyerSelect = (lawyer) => {
+    setSelectedLawyer(lawyer);
+    const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${lawyer.location.lat},${lawyer.location.lng}`;
+    setMapUrl(mapLink);
   };
 
   return (
-    <div style={styles.container}>
-      <button onClick={() => setShowForm(false)} style={styles.closeButton}>
-        ✖
-      </button>
-      <h2 style={styles.header}>Preferences</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="field">Field</label>
+    <div className="find-lawyer">
+      <h1>Find a Lawyer</h1>
+
+      {/* Postcode Search */}
+      <div className="search-section">
+        <label>Enter Postcode</label>
+        <input
+          type="text"
+          placeholder="Enter Postcode"
+          value={postcode}
+          onChange={(e) => setPostcode(e.target.value)}
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+
+      {/* Preferences */}
+      <div className="preferences-section">
+        <label>Select Field</label>
         <select
-          id="field"
           name="field"
-          value={formValues.field}
-          onChange={handleChange}
-          style={styles.select}
+          value={preferences.field}
+          onChange={handlePreferenceChange}
         >
-          <option value="">--Select Field--</option>
-          <option value="corporate">Corporate Law</option>
-          <option value="criminal">Criminal Law</option>
-          <option value="family">Family Law</option>
-          <option value="property">Property Law</option>
+          <option value="">Select Field</option>
+          <option value="immigration">Immigration</option>
+          <option value="housing">Housing</option>
+          <option value="employment">Employment</option>
         </select>
 
-        <label htmlFor="qualification">Qualification</label>
+        <label>Preferred Language</label>
         <select
-          id="qualification"
-          name="qualification"
-          value={formValues.qualification}
-          onChange={handleChange}
-          style={styles.select}
-        >
-          <option value="">--Select Qualification--</option>
-          <option value="bachelor">Bachelors Degree</option>
-          <option value="master">Masters Degree</option>
-          <option value="phd">PhD</option>
-        </select>
-
-        <label htmlFor="language">Preferred Language</label>
-        <select
-          id="language"
           name="language"
-          value={formValues.language}
-          onChange={handleChange}
-          style={styles.select}
+          value={preferences.language}
+          onChange={handlePreferenceChange}
         >
-          <option value="">--Select Language--</option>
-          {languages.map((language) => (
-            <option key={language} value={language}>
-              {language}
-            </option>
-          ))}
+          <option value="">Select Language</option>
+          <option value="english">English</option>
+          <option value="spanish">Spanish</option>
+          <option value="french">French</option>
+          <option value="swahili">Swahili</option>
+          {/* Add more languages as needed */}
         </select>
 
-        <label htmlFor="gender">Gender</label>
+        <label>Religion</label>
+        <input
+          type="text"
+          name="religion"
+          placeholder="Enter Religion"
+          value={preferences.religion}
+          onChange={handlePreferenceChange}
+        />
+
+        <label>Nationality</label>
+        <input
+          type="text"
+          name="nationality"
+          placeholder="Enter Nationality"
+          value={preferences.nationality}
+          onChange={handlePreferenceChange}
+        />
+
+        <label>Gender</label>
         <select
-          id="gender"
           name="gender"
-          value={formValues.gender}
-          onChange={handleChange}
-          style={styles.select}
+          value={preferences.gender}
+          onChange={handlePreferenceChange}
         >
-          <option value="">--Select Gender--</option>
+          <option value="">Select Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
           <option value="nonbinary">Non-binary</option>
           <option value="other">Other</option>
         </select>
+      </div>
 
-        <label htmlFor="religion">Religion</label>
-        <input
-          type="text"
-          id="religion"
-          name="religion"
-          value={formValues.religion}
-          onChange={handleChange}
-          style={styles.select}
-          placeholder="Enter Religion"
-        />
+      {/* Lawyer List */}
+      <div className="lawyer-list">
+        {lawyers.length > 0 ? (
+          lawyers.map((lawyer) => (
+            <div
+              key={lawyer.id}
+              className="lawyer-card"
+              onClick={() => handleLawyerSelect(lawyer)}
+            >
+              <h3>{lawyer.name}</h3>
+              <p>{lawyer.specialisation.join(", ")}</p>
+              <p>Distance: {lawyer.distance} miles</p>
+            </div>
+          ))
+        ) : (
+          <p>No lawyers found. Try adjusting your preferences or searching another postcode.</p>
+        )}
+      </div>
 
-        <label htmlFor="nationality">Nationality</label>
-        <select
-          id="nationality"
-          name="nationality"
-          value={formValues.nationality}
-          onChange={handleChange}
-          style={styles.select}
-        >
-          <option value="">--Select Nationality--</option>
-          {nationalities.map((nationality) => (
-            <option key={nationality} value={nationality}>
-              {nationality}
-            </option>
-          ))}
-        </select>
-
-        <button type="submit" style={{ ...styles.select, cursor: 'pointer' }}>
-          Submit
-        </button>
-      </form>
+      {/* Selected Lawyer Modal */}
+      {selectedLawyer && (
+        <div className="modal">
+          <h2>Book Lawyer: {selectedLawyer.name}</h2>
+          <p>Specialisation: {selectedLawyer.specialisation.join(", ")}</p>
+          <p>Distance: {selectedLawyer.distance} miles</p>
+          <a href={mapUrl} target="_blank" rel="noopener noreferrer">
+            View Directions on Google Maps
+          </a>
+          <button onClick={() => setSelectedLawyer(null)}>Close</button>
+        </div>
+      )}
     </div>
   );
 };
 
-export default UserPreferencesForm;
+export default FindLawyer;

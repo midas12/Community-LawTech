@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+//import "./App.css";
 // Pages
 import HomePage from "./components/HomePage";
 import Mission from "./components/Mission";
@@ -18,7 +18,7 @@ import Login from "./components/Login";
 import AdminDashboard from "./components/AdminDashboard";
 import AdminManageLawyers from "./components/AdminManageLawyers";
 import AdminLoginForm from "./components/AdminLoginForm";
-
+//import GoogleTranslate from './components/GoogleTranslate';
 const App = () => {
 
   return (
@@ -30,8 +30,9 @@ const App = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/lawyers" element={<AdminManageLawyers />} />
           <Route path="/Admin/login" element={<AdminLoginForm/>} />
-
           <Route path="/mission" element={<Mission />} />
+
+
           <Route path="/our-legal-support" element={<OurLegalSupport />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/find-lawyer" element={<FindLawyer />} />
