@@ -8,11 +8,9 @@ const Login = ({ setShowForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
 
   const handleSignupClick = (e) => {
     e.preventDefault();
@@ -23,6 +21,11 @@ const Login = ({ setShowForm }) => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    if (!validateEmail(email) || !validatePassword(password)) {
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await axiosInstance.post("/api/auth/login", {
         email,
@@ -35,24 +38,6 @@ const Login = ({ setShowForm }) => {
       toast.error(error.response?.data?.message || "Invalid email or password");
     } finally {
       setIsLoading(false);
-    }
-    e.preventDefault();
-    navigate("/lawyer-registration");
-    if (setShowForm) {
-      setShowForm(true);
-    }
-  };
-
-  const handleSigninClick = (e) => {
-    e.preventDefault();
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
-
-    if (isEmailValid && isPasswordValid) {
-      navigate("/lawyer-home");
-      if (setShowForm) {
-        setShowForm(true);
-      }
     }
   };
 
@@ -117,14 +102,8 @@ const Login = ({ setShowForm }) => {
               type="email"
               className="input-field"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              className="input-field"
-              value={email}
               onChange={handleEmailChange}
+              required
             />
             {emailError && <p className="error-message">{emailError}</p>}
           </div>
@@ -135,14 +114,8 @@ const Login = ({ setShowForm }) => {
                 type="password"
                 className="input-field"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                className="input-field"
-                value={password}
                 onChange={handlePasswordChange}
+                required
               />
               <span className="toggle-password"></span>
             </div>
@@ -159,12 +132,6 @@ const Login = ({ setShowForm }) => {
           </div>
           <button type="submit" className="sign-in-button" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign in"}
-          <button
-            type="submit"
-            className="sign-in-button"
-            onClick={handleSigninClick}
-          >
-            Sign in
           </button>
         </form>
         <p className="signup-link">
@@ -175,7 +142,6 @@ const Login = ({ setShowForm }) => {
         </p>
       </div>
       <div className="login-image">
-        <img src="/assets/images/homepageImage.jpg" alt="Homepage" />
         <img src="/assets/images/homepageImage.jpg" alt="Login" />
       </div>
     </div>

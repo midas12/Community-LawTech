@@ -1,21 +1,20 @@
-import { useNavigate, Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 function Header({ setShowForm }) {
   const navigate = useNavigate(); // Initialize the navigate function
+  const location = useLocation(); // Get the current route location
+  const [showLoginDropdown, setShowLoginDropdown] = useState(false); // State to control dropdown visibility
 
   const handleLoginClick = (path) => {
     setShowLoginDropdown(false); // Close the dropdown
     navigate(path); // Navigate to the selected login page
   };
 
-    const location = useLocation();
-  
-    // Do not render the header on the lawyer home page
-    if (location.pathname === "/lawyer-home") {
-      return null;
-    }
+  // Do not render the header on the lawyer home page
+  if (location.pathname === "/lawyer-home") {
+    return null;
+  }
 
   return (
     <header className="header-box fixed-top bg-dark text-white">
