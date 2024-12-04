@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'; // Calendar styling
+// import Calendar from 'react-calendar';
+// import 'react-calendar/dist/Calendar.css'; // Calendar styling
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for page navigation
 import './LawyerHomePage.css';
 
