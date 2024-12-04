@@ -20,6 +20,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import AdminManageLawyers from "./components/AdminManageLawyers";
 import AdminLoginForm from "./components/AdminLoginForm";
 import LawyerHomePage from "./components/LawyerHomePage";
+import LawyerLogin from "./components/LawyerLogin";
 
 const App = () => {
 
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/user-preferences" element={<UserPreferencesForm />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/lawyer-home" element={<LawyerHomePage />} />
+          <Route path="/lawyer-login" element={<LawyerLogin />} />
         </Routes>
       </main>
       <Footer />
