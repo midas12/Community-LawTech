@@ -9,6 +9,10 @@ const Login = ({ setShowForm }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleSignupClick = (e) => {
     e.preventDefault();
@@ -32,6 +36,74 @@ const Login = ({ setShowForm }) => {
     } finally {
       setIsLoading(false);
     }
+    e.preventDefault();
+    navigate("/lawyer-registration");
+    if (setShowForm) {
+      setShowForm(true);
+    }
+  };
+
+  const handleSigninClick = (e) => {
+    e.preventDefault();
+    const isEmailValid = validateEmail(email);
+    const isPasswordValid = validatePassword(password);
+
+    if (isEmailValid && isPasswordValid) {
+      navigate("/lawyer-home");
+      if (setShowForm) {
+        setShowForm(true);
+      }
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError(""); // Clear the error message as the user types
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordError(""); // Clear the error message as the user types
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address.");
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = (password) => {
+    const minLength = /.{8,}/;
+    const hasLowerCase = /[a-z]/;
+    const hasUpperCase = /[A-Z]/;
+    const hasNumber = /[0-9]/;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (!minLength.test(password)) {
+      setPasswordError("Password must be at least 8 characters long.");
+      return false;
+    }
+    if (!hasLowerCase.test(password)) {
+      setPasswordError("Password must include at least one lowercase letter.");
+      return false;
+    }
+    if (!hasUpperCase.test(password)) {
+      setPasswordError("Password must include at least one uppercase letter.");
+      return false;
+    }
+    if (!hasNumber.test(password)) {
+      setPasswordError("Password must include at least one number.");
+      return false;
+    }
+    if (!hasSpecialChar.test(password)) {
+      setPasswordError("Password must include at least one special character.");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -48,6 +120,13 @@ const Login = ({ setShowForm }) => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            <input
+              type="text"
+              className="input-field"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            {emailError && <p className="error-message">{emailError}</p>}
           </div>
           <div className="form-group">
             <label>Password</label>
@@ -59,7 +138,15 @@ const Login = ({ setShowForm }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <input
+                type="password"
+                className="input-field"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <span className="toggle-password"></span>
             </div>
+            {passwordError && <p className="error-message">{passwordError}</p>}
           </div>
           <div className="form-actions">
             <div>
@@ -72,6 +159,12 @@ const Login = ({ setShowForm }) => {
           </div>
           <button type="submit" className="sign-in-button" disabled={isLoading}>
             {isLoading ? "Signing in..." : "Sign in"}
+          <button
+            type="submit"
+            className="sign-in-button"
+            onClick={handleSigninClick}
+          >
+            Sign in
           </button>
         </form>
         <p className="signup-link">
@@ -82,6 +175,7 @@ const Login = ({ setShowForm }) => {
         </p>
       </div>
       <div className="login-image">
+        <img src="/assets/images/homepageImage.jpg" alt="Homepage" />
         <img src="/assets/images/homepageImage.jpg" alt="Login" />
       </div>
     </div>

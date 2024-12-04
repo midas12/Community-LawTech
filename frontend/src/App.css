@@ -249,7 +249,6 @@ body {
   max-width: 800px;
   margin: 0 auto;
   height: 110vh;
-
 }
 .hero h2 {
   font-size: 2.5rem;
@@ -310,6 +309,45 @@ body {
 .chatbot-button:hover {
   background-color: #b30098; /* Slightly darker shade on hover */
 }
+.missions {
+  padding: 40px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0);
+  margin: 0px 0;
+  text-align: center;
+}
+.missions h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.missions p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #ffffff;
+  white-space: normal;  
+  word-wrap: break-word; 
+}
+.missions .btn {
+  background-color: #5e013f; /* Blue color */
+  color: white;
+  padding: 12px 30px;
+  font-size: 14px;
+  border: #5e013f;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid #5e013f;
+}
+.missions .btn:hover {
+  background-color: #5e013f3d; /* Darker blue on hover */
+}
+.missions .btn:focus {
+  outline: none;
+}
+
 
 
 
@@ -468,6 +506,43 @@ body {
 }
 .team-member-links a:hover {
   color: #0056b3;
+}
+.client-reviews-section {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 3px solid #5e013f;
+}
+.client-reviews-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+.client-reviews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* This ensures the items are centered */
+}
+.client-review-card {
+  flex: 1 1 calc(30% - 20px); /* Adjust the width to 30% of the container, minus gap */
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.client-review-message {
+  font-style: italic;
+}
+.client-review-client-name {
+  font-weight: bold;
+  margin-top: 10px;
+}
+.client-review-date {
+  color: #666;
+  font-size: 0.9rem;
 }
 
 
@@ -694,6 +769,11 @@ h1 {
 .sign-in-button:hover {
   background-color: #b30098;
 }
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
 .signup-link {
   text-align: center;
   margin-top: 20px;
@@ -714,7 +794,7 @@ h1 {
   align-items: center;
   justify-content: center;
   background: url('assets/images/homepageImage.jpg') center center/cover no-repeat;
-  opacity: 0.7; /* Adjust the opacity to make it see-through */
+  opacity: 0.7; 
   clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
 }
 .login-image img {
@@ -765,3 +845,93 @@ body {
 .goog-te-gadget {
   color: #333 !important;
 }
+
+/* Service Page Container */
+.service-page {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin-top: 110px;
+}
+.service-page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.service-list {
+  display: flex;
+  flex-wrap: wrap;  
+  gap: 20px;  
+  justify-content: center;  
+}
+.service-item {
+  width: calc(33.333% - 20px);  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.service-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+.immigration-box {
+  width: 100%;
+  height: 250px;  
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+  background: url('assets/images/immigration.jpg') center center/cover no-repeat;
+}
+.housing-box {
+  width: 100%;
+  height: 250px; 
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+  background: url('assets/images/housing.jpg') center center/cover no-repeat;
+}
+.employment-box {
+  width: 100%;
+  height: 250px;  
+  margin-bottom: 15px;
+  overflow: hidden;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eaeaea;
+  background: url('assets/images/employment.jpg') center center/cover no-repeat;
+}
+.service-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;  
+  border-radius: 8px;
+}
+h3 {
+  font-size: 24px;
+  margin: 10px 0;
+  color: #000;
+}
+p {
+  font-size: 16px;
+  color: #000000;
+}
+
+
+
+
+
+

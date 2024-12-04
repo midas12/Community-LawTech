@@ -6,6 +6,7 @@ import Footer from "./Footer"; // Import the Footer component
 import Chatbot from "react-chatbot-kit"; // Import the Chatbot
 import "react-chatbot-kit/build/main.css"; // Import Chatbot styles
 
+
 const HomePage = () => {
   const [showForm, setShowForm] = useState(false); // State to control form visibility
   const [showChatbot, setShowChatbot] = useState(false); // State to control chatbot visibility
@@ -14,6 +15,10 @@ const HomePage = () => {
 
   const handleFindLawyersClick = () => {
     navigate('/find-lawyer'); // Navigate to the Find Lawyer page
+  };
+
+  const handleSupportOurMissionClick = () => {
+    navigate('/support-our-mission'); // Navigate to the Find Lawyer page
   };
 
   return (
@@ -54,11 +59,17 @@ const HomePage = () => {
           {/* Chatbot conditional rendering */}
           {showChatbot && <Chatbot />}
 
-          {/* <div className="job-adverts">
-            <h2>Join Us</h2>
-            <p>We are always looking for passionate individuals to help us.</p>
-            <button className="btn btn-primary">View Positions</button>
-          </div> */}
+          <div className="missions">
+  <h2>Support Our Mission</h2>
+  <p>
+    Your contributions help us provide essential legal services 
+    to those in need. Every donation makes a difference in the lives 
+    of marginalized communities seeking justice.
+  </p>
+  <button className="btn btn-primary" onClick={handleSupportOurMissionClick}>Learn More</button>
+</div>
+
+
         </section>
       )}
 

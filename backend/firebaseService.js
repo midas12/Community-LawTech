@@ -27,4 +27,15 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-export { db };
+const addSubscription = async (subscriptionData) => {
+  try {
+    const docRef = await db.collection('subscriptions').add(subscriptionData);
+    console.log('Subscription added with ID: ', docRef.id);
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding subscription: ', error);
+    throw error;
+  }
+};
+
+export { db, addSubscription };

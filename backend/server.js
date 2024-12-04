@@ -13,6 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import routes
+import funderRoute from './routes/funderRoute.js';
+import assistanceRoute from './routes/assistanceRoute.js';
+import trainingRoute from './routes/trainingRoute.js';
+import feedbackRoute from './routes/feedbackRoute.js';
+import termsRoute from './routes/termsRoute.js';
 import lawyerRegistrationRoutes from './routes/lawyerRegistrationRoutes.js';
 import missionRoutes from './routes/missionRoutes.js';
 import getTrainedRoutes from "./routes/getTrainedRoutes.js"; // Import only once
@@ -20,6 +25,11 @@ import authRoutes from "./routes/authRoutes.js";
 
 
 // Use routes
+app.use('/api/funders', funderRoute);
+app.use('/api/assistance', assistanceRoute);
+app.use('/api/training', trainingRoute);
+app.use('/api/feedback', feedbackRoute);
+app.use('/api/terms', termsRoute);
 app.use('/api/lawyers', lawyerRegistrationRoutes);
 app.use('/api/missions', missionRoutes);
 app.use("/api/get-trained", getTrainedRoutes); // Use only once

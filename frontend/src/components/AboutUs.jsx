@@ -38,6 +38,24 @@ const AboutUs = () => {
     },
   ];
 
+  const clientReviews = [
+    {
+      clientName: "John Doe",
+      review: "The team provided excellent service, and I felt supported throughout my case.",
+      date: "November 2024",
+    },
+    {
+      clientName: "Jane Smith",
+      review: "Professional and trustworthy. I highly recommend their services.",
+      date: "October 2024",
+    },
+    {
+      clientName: "Michael Brown",
+      review: "A seamless experience with great communication every step of the way.",
+      date: "September 2024",
+    },
+  ];
+
   return (
     <div className="about-us">
       <h1 className="about-us-title">Join Our Team</h1>
@@ -65,6 +83,24 @@ const AboutUs = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Client Reviews Section */}
+      <div className="client-reviews-section">
+        <h2 className="client-reviews-title">Client Reviews</h2>
+        {clientReviews.length > 0 ? (
+          <div className="client-reviews">
+            {clientReviews.map((review, index) => (
+              <div key={index} className="client-review-card">
+                <p className="client-review-message">"{review.review}"</p>
+                <p className="client-review-client-name">- {review.clientName}</p>
+                <p className="client-review-date">{review.date}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>No reviews available at the moment.</p>
+        )}
       </div>
     </div>
   );
