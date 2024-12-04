@@ -1,0 +1,112 @@
+.body{
+  font-family: Arial, sans-serif;
+}
+.lawyer-home {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f1f1f1;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 2rem;
+    color: #000000;
+    margin-left: 50px;
+  }
+    .profile-btn-container {
+        position: relative;
+      }
+      
+      .profile-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 50px;
+      }
+      
+      .profile-btn:hover {
+        background-color: #0056b3;
+      }
+      
+      .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        width: 100px;
+        margin-right: 50px;
+      }
+      
+      .sign-out-btn {
+        background-color: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 8px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      
+      .sign-out-btn:hover {
+        background-color: #e60000;
+      }
+      
+  .main-content {
+    display: flex;
+    gap: 20px;
+  }
+  .notifications {
+    flex: 1;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(104, 104, 104, 0.1);
+    color: #000;
+  }
+  .timeline {
+    list-style: none;
+    padding: 0;
+  }
+  .timeline-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-left: 3px solid #007bff;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .timeline-time {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  .timeline-message {
+    font-size: 1rem;
+    color: #000;
+  }
+  .calendar {
+    flex: 1;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #000;
+  }
+  .calendar * {
+    color: black;  /* This will make all text inside the calendar black */
+  }
+  
