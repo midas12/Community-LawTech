@@ -1,4 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function Header({ setShowForm }) {
   const navigate = useNavigate(); // Initialize the navigate function
@@ -6,6 +7,13 @@ function Header({ setShowForm }) {
   const handleGetInvolvedClick = () => {
     setShowForm(true); // Show the form when clicked
   };
+
+    const location = useLocation();
+  
+    // Do not render the header on the lawyer home page
+    if (location.pathname === "/lawyer-home") {
+      return null;
+    }
 
   return (
     <header className="header-box fixed-top bg-dark text-white">
