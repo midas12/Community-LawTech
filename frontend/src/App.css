@@ -53,7 +53,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px; /* Space between links */
-  margin-left: 20%; 
+  margin-left: 5%; 
 }
 .header-box nav a {
   text-decoration: none; 
@@ -91,6 +91,69 @@ body {
   background-color: #b30098; /* Darker shade on hover */
   transform: scale(1.05); /* Slight zoom effect */
 }
+/* Dropdown Container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Login Button */
+.btn-login {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: white;
+  background-color: #007bff; /* Blue color for login button */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Show the dropdown when it's active */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Dropdown Item Styling */
+.dropdown-item {
+  padding: 10px 15px;
+  font-size: 1em;
+  color: #333;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1; /* Light gray on hover */
+}
+
+/* Adjust the right position of the dropdown */
+.dropdown-menu-right {
+  right: 0;
+}
+
 
 
 /*On boarding form*/
