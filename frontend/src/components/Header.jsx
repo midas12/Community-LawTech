@@ -59,13 +59,13 @@ function Header({ setShowForm }) {
               <div className="dropdown-menu dropdown-menu-right show">
                 <button
                   className="dropdown-item"
-                  onClick={() => handleLoginClick("/user-login")}
+                  onClick={() => handleLoginClick("/login")}
                 >
                   User Login
                 </button>
                 <button
                   className="dropdown-item"
-                  onClick={() => handleLoginClick("/admin-login")}
+                  onClick={() => handleLoginClick("/admin/login")}
                 >
                   Admin Login
                 </button>
@@ -73,7 +73,7 @@ function Header({ setShowForm }) {
                   className="dropdown-item"
                   onClick={() => handleLoginClick("/lawyer-login")}
                 >
-                  Lawyers Login
+                  Lawyer Login
                 </button>
                 <button
                   className="dropdown-item"
