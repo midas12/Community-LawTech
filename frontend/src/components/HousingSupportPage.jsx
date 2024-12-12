@@ -6,15 +6,15 @@ const HousingSupportPage = () => {
   const services = [
     {
       title: "Tenancy Rights",
-      description: "Understanding your rights as a tenant and dealing with landlord disputes"
+      description: "Understanding your rights as a tenant and dealing with landlord disputes. Learn how to navigate rental agreements, ensure proper maintenance of your rented property, and address common issues like rent increases, deposits, and eviction notices. Discover effective ways to handle disputes with landlords, seek legal support, and protect yourself from unfair practices. This guide empowers tenants with the knowledge they need to foster a fair and stress-free renting experience."
     },
     {
       title: "Eviction Support",
-      description: "Legal assistance with eviction notices and proceedings"
+      description: "Legal assistance  for tenants facing eviction, including guidance on understanding eviction notices, filing responses, and navigating court proceedings. Our support also covers negotiating with landlords, exploring tenant rights, and accessing emergency housing resources to ensure stability during challenging times."
     },
     {
       title: "Housing Benefits",
-      description: "Help with housing benefit claims and appeals"
+      description: "Assistance with housing benefit claims, eligibility checks, and appeals. Our team provides guidance on understanding housing benefit policies and helps navigate the application process to ensure you receive the financial support you are entitled to."
     }
   ];
 
