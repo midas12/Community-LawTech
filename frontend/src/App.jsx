@@ -24,6 +24,7 @@ import LawyerLogin from "./components/LawyerLogin";
 import ImmigrationSupportPage from "./components/ImmigrationSupportPage";
 import EmploymentServicePage from "./components/EmploymentServicePage";
 import HousingSupportPage from "./components/HousingSupportPage";
+import DonatePage from "./components/DonatePage";
 
 const App = () => {
 
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="/immigration" element={<ImmigrationSupportPage/>} />
           <Route path="/housing" element={<HousingSupportPage/>} />
           <Route path="/employment" element={<EmploymentServicePage/>} />
+          <Route path="/donate" element={<DonatePage />} />
         </Routes>
       </main>
       <Footer />
