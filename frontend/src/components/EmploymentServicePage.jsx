@@ -1,5 +1,6 @@
 import React from 'react';
 import { Briefcase } from 'lucide-react';  // Import the Briefcase icon
+import "./EmploymentServicePage.css"
 
 // Employment Service Page
 const EmploymentServicePage = () => {
@@ -25,14 +26,22 @@ const EmploymentServicePage = () => {
         <h1>Employment Legal Support</h1>
         <p>Professional legal assistance for workplace issues</p>
       </header>
+      {/* New Image Section */}
+      <section className="image-section">
+        <img
+          src="https://reactiv8.org.uk/wp-content/uploads/2024/02/pexels-edmond-dantes-4344860.jpg" 
+          alt="Housing Support"
+          className="image-section-img"
+        />
+      </section>
       <section className="service-details">
         <h2>Our Employment Services</h2>
         <ul>
           {services.map((service, index) => (
             <li key={index}>
-              <div className="service-icon">
+              {/* <div className="service-icon">
                 <Briefcase size={24} />
-              </div>
+              </div> */}
               <h3>{service.title}</h3>
               <p>{service.description}</p>
             </li>
