@@ -8,7 +8,7 @@ const AboutUs = () => {
       name: "Ammar Abdul Razak",
       role: "Paralegal",
       description: "Ammar supports the legal team with her expertise in documentation and case management.",
-      image: "https://via.placeholder.com/150",
+      image: "https://images.squarespace-cdn.com/content/v1/5b6e7af1cc8fed5946743743/1605563570183-P8KRAKS0HS4HH0ZXN5RN/Neofluidics+Headshot+202521.jpg",
       linkedin: "#",
       twitter: "#",
     },
@@ -16,7 +16,7 @@ const AboutUs = () => {
       name: "Hiba El Haroun",
       role: "Outreach Coordinator",
       description: "Hiba works to connect the firm with the community, ensuring that services reach those in need.",
-      image: "https://via.placeholder.com/150",
+      image: "https://images.squarespace-cdn.com/content/v1/647f33d5d57c8b4c85f6bb09/1719866368795-ZA1NKQCZA3H17IW3OO4M/Andie+von+Eschen_WCS_2156.jpg",
       linkedin: "#",
       twitter: "#",
     },
@@ -24,7 +24,7 @@ const AboutUs = () => {
       name: "Curtis Fowler",
       role: "Legal Intern",
       description: "Curtis is gaining valuable experience in various legal fields while assisting the team.",
-      image: "https://via.placeholder.com/150",
+      image: "https://www.bethesdaheadshots.com/wp-content/uploads/2016/08/Arthur_4215pF800x1000.jpg",
       linkedin: "#",
       twitter: "#",
     },
@@ -32,7 +32,7 @@ const AboutUs = () => {
       name: "Gabriela Shiva",
       role: "IT Specialist",
       description: "Gaby ensures that the Community LawTech platform runs smoothly and efficiently.",
-      image: "https://via.placeholder.com/150",
+      image: "https://cotugnophoto.com/wp-content/uploads/2024/09/ccp-corporate-lawyer-formal-headshot-16x9-1.jpg",
       linkedin: "#",
       twitter: "#",
     },
@@ -67,7 +67,7 @@ const AboutUs = () => {
           <div key={index} className="team-member-card">
             <img
               src={member.image}
-              alt={`${member.name}'s profile`}
+              // alt={`${member.name}'s profile`}
               className="team-member-image"
             />
             <h3 className="team-member-name">{member.name}</h3>
