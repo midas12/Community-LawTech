@@ -1,213 +1,151 @@
 import React, { useState } from "react";
-import axiosInstance from "../Api/axiosInstance";
-import "../App.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axiosInstance from "../Api/axiosInstance"; // For backend communication
+import "../App.css"; // Centralized styling
 
-const religionList = [
-  "Christianity", "Islam", "Hinduism", "Buddhism", "Judaism", "Sikhism", "Bahá'í Faith", 
-  "Jainism", "Shinto", "Zoroastrianism", "Taoism", "Confucianism", "Paganism", "Wicca", 
-  "Rastafarianism"
-];
+const LawyerLogin = ({ setShowForm }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
 
-const nationalityList = [
-  "Afghan", "Albanian", "Algerian", "American", "Andorran", "Angolan", 
-  "Argentine", "Armenian", "Australian", "Austrian", "Azerbaijani", 
-  "Bangladeshi", "Barbadian", "Belgian", "Brazilian", "British", 
-  "Bulgarian", "Canadian", "Chinese", "Colombian", "Croatian", 
-  "Cuban", "Danish", "Dutch", "Egyptian", "Filipino", "Finnish", 
-  "French", "German", "Ghanaian", "Greek", "Indian", "Indonesian", 
-  "Irish", "Italian", "Japanese", "Korean", "Mexican", "Nepalese", 
-  "Nigerian", "Norwegian", "Pakistani", "Polish", "Portuguese", 
-  "Romanian", "Russian", "Saudi", "South African", "Spanish", 
-  "Sri Lankan", "Swedish", "Swiss", "Thai", "Turkish", "Ukrainian", 
-  "Vietnamese", "Zambian", "Zimbabwean"
-].sort();
+  const handleSignupClick = (e) => {
+    e.preventDefault();
+    navigate("/lawyer-registration");
+    setShowForm(true);
+  };
 
-const languageList = [
-  "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Bengali", 
-  "Bosnian", "Bulgarian", "Catalan", "Cebuano", "Chinese", "Croatian", "Czech", 
-  "Danish", "Dutch", "English", "Esperanto", "Estonian", "Finnish", "French", 
-  "Galician", "Georgian", "German", "Greek", "Gujarati", "Haitian Creole", "Hausa", 
-  "Hebrew", "Hindi", "Hungarian", "Icelandic", "Igbo", "Indonesian", "Irish", 
-  "Italian", "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer", "Korean", 
-  "Kurdish", "Kyrgyz", "Lao", "Latin", "Latvian", "Lithuanian", "Luxembourgish", 
-  "Macedonian", "Malagasy", "Malay", "Malayalam", "Maltese", "Maori", "Marathi", 
-  "Mongolian", "Nepali", "Norwegian", "Odia", "Pashto", "Persian", "Polish", 
-  "Portuguese", "Punjabi", "Romanian", "Russian", "Samoan", "Scots Gaelic", 
-  "Serbian", "Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian", 
-  "Somali", "Spanish", "Sundanese", "Swahili", "Swedish", "Tajik", "Tamil", 
-  "Tatar", "Telugu", "Thai", "Turkish", "Turkmen", "Ukrainian", "Urdu", "Uyghur", 
-  "Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yoruba"
-].sort();
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    if (!validateEmail(email) || !validatePassword(password)) {
+      setIsLoading(false);
+      return;
+    }
 
-const FindLawyer = () => {
-  const [postcode, setPostcode] = useState("");
-  const [filterStage, setFilterStage] = useState(1);
-  const [filters, setFilters] = useState({
-    field: "",
-    language: "",
-    religion: "",
-    nationality: "",
-    gender: "",
-  });
-  const [lawyers, setLawyers] = useState([]);
-  const [selectedLawyer, setSelectedLawyer] = useState(null);
-  const [mapUrl, setMapUrl] = useState("");
-
-  const fields = ["Corporate Law", "Criminal Law", "Family Law", "Property Law", "Immigration", "Housing", "Employment"];
-  const genders = ["Male", "Female", "Non-binary", "Other"];
-
-  const handleSearch = async () => {
     try {
-      const response = await axiosInstance.get(`/lawyers/search?postcode=${postcode}`);
-      setLawyers(response.data);
-      setFilterStage(2);
+      const response = await axiosInstance.post("/api/auth/login", {
+        email,
+        password,
+      });
+      toast.success("Login successful!");
+      localStorage.setItem("token", response.data.token); // Store token for authenticated routes
+      navigate("/dashboard"); // Redirect to dashboard after login
     } catch (error) {
-      console.error("Error fetching lawyers:", error);
+      toast.error(error.response?.data?.message || "Invalid email or password");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prev) => ({ ...prev, [name]: value }));
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError(""); // Clear the error message as the user types
   };
 
-  const handleNextFilter = () => {
-    if (filterStage < 6) setFilterStage(filterStage + 1);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordError(""); // Clear the error message as the user types
   };
 
-  const handleFormSubmit = () => {
-    console.log("Selected Filters:", filters);
-    console.log("Filtered Lawyers:", lawyers);
-    alert("Filters applied! Check console for details.");
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email address.");
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = (password) => {
+    const minLength = /.{8,}/;
+    const hasLowerCase = /[a-z]/;
+    const hasUpperCase = /[A-Z]/;
+    const hasNumber = /[0-9]/;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (!minLength.test(password)) {
+      setPasswordError("Password must be at least 8 characters long.");
+      return false;
+    }
+    if (!hasLowerCase.test(password)) {
+      setPasswordError("Password must include at least one lowercase letter.");
+      return false;
+    }
+    if (!hasUpperCase.test(password)) {
+      setPasswordError("Password must include at least one uppercase letter.");
+      return false;
+    }
+    if (!hasNumber.test(password)) {
+      setPasswordError("Password must include at least one number.");
+      return false;
+    }
+    if (!hasSpecialChar.test(password)) {
+      setPasswordError("Password must include at least one special character.");
+      return false;
+    }
+
+    return true;
   };
 
   return (
-    <div className="find-lawyer">
-      <h1>Find Your Lawyer</h1>
-
-      {/* Search by Postcode */}
-      {filterStage === 1 && (
-        <div className="filter-stage">
-          <h2>Enter Your Postcode</h2>
-          <input
-            type="text"
-            placeholder="Enter Postcode"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
-      )}
-
-      {/* Filter by Field */}
-      {filterStage === 2 && (
-        <div className="filter-stage">
-          <h2>Select Field</h2>
-          <select name="field" value={filters.field} onChange={handleFilterChange}>
-            <option value="">Select Field</option>
-            {fields.map((field) => (
-              <option key={field} value={field}>
-                {field}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Language */}
-      {filterStage === 3 && (
-        <div className="filter-stage">
-          <h2>Select Language</h2>
-          <select name="language" value={filters.language} onChange={handleFilterChange}>
-            <option value="">Select Language</option>
-            {languageList.map((language) => (
-              <option key={language} value={language}>
-                {language}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Religion */}
-      {filterStage === 4 && (
-        <div className="filter-stage">
-          <h2>Select Religion</h2>
-          <select name="religion" value={filters.religion} onChange={handleFilterChange}>
-            <option value="">Select Religion</option>
-            {religionList.map((religion) => (
-              <option key={religion} value={religion}>
-                {religion}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Nationality */}
-      {filterStage === 5 && (
-        <div className="filter-stage">
-          <h2>Select Nationality</h2>
-          <select name="nationality" value={filters.nationality} onChange={handleFilterChange}>
-            <option value="">Select Nationality</option>
-            {nationalityList.map((nationality) => (
-              <option key={nationality} value={nationality}>
-                {nationality}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Gender */}
-      {filterStage === 6 && (
-        <div className="filter-stage">
-          <h2>Select Gender</h2>
-          <select name="gender" value={filters.gender} onChange={handleFilterChange}>
-            <option value="">Select Gender</option>
-            {genders.map((gender) => (
-              <option key={gender} value={gender}>
-                {gender}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleFormSubmit}>Apply Filters</button>
-        </div>
-      )}
-
-      {/* Display Lawyer Results */}
-      {lawyers.length > 0 && (
-        <div className="lawyer-list">
-          <h2>Available Lawyers</h2>
-          {lawyers.map((lawyer) => (
-            <div
-              key={lawyer.id}
-              className="lawyer-card"
-              onClick={() => handleLawyerSelect(lawyer)}
-            >
-              <h3>{lawyer.name}</h3>
-              <p>Field: {lawyer.specialisation.join(", ")}</p>
-              <p>Distance: {lawyer.distance} miles</p>
+    <div className="login-container">
+      <div className="login-form">
+        <h1 className="form-title">Login</h1>
+        <form onSubmit={handleLoginSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              className="input-field"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+            {emailError && <p className="error-message">{emailError}</p>}
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <div className="password-container">
+              <input
+                type="password"
+                className="input-field"
+                value={password}
+                onChange={handlePasswordChange}
+                required
+              />
+              <span className="toggle-password"></span>
             </div>
-          ))}
-        </div>
-      )}
-
-      {/* Google Map for Selected Lawyer */}
-      {selectedLawyer && (
-        <div className="modal">
-          <h2>Book Lawyer: {selectedLawyer.name}</h2>
-          <a href={mapUrl} target="_blank" rel="noopener noreferrer">
-            View Directions on Google Maps
+            {passwordError && <p className="error-message">{passwordError}</p>}
+          </div>
+          <div className="form-actions">
+            <div>
+              <input type="checkbox" id="rememberMe" />
+              <label htmlFor="rememberMe">Remember me</label>
+            </div>
+            <a href="/forgot-password" className="forgot-password">
+              Forgot Password?
+            </a>
+          </div>
+          <button type="submit" className="sign-in-button" disabled={isLoading}>
+            {isLoading ? "Signing in..." : "Sign in"}
+          </button>
+        </form>
+        <p className="signup-link">
+          Don’t have an account?{" "}
+          <a href="/signup" onClick={handleSignupClick}>
+            Sign up
           </a>
-        </div>
-      )}
+        </p>
+      </div>
+      <div className="login-image">
+        <img src="/assets/images/homepageImage.jpg" alt="Login" />
+      </div>
     </div>
   );
 };
 
-export default FindLawyer;
+export default LawyerLogin;
