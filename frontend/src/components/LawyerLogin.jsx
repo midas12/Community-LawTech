@@ -18,6 +18,12 @@ const LawyerLogin = ({ setShowForm }) => {
     setShowForm(true);
   };
 
+  const handleSigninClick = (e) => {
+    e.preventDefault();
+    navigate("/lawyer-home");
+    setShowForm(true);
+  };
+
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -130,7 +136,7 @@ const LawyerLogin = ({ setShowForm }) => {
               Forgot Password?
             </a>
           </div>
-          <button type="submit" className="sign-in-button" disabled={isLoading}>
+          <button type="submit" className="sign-in-button" disabled={isLoading} href="/lawyer-home" onClick={handleSigninClick}>
             {isLoading ? "Signing in..." : "Sign in"}
           </button>
         </form>
