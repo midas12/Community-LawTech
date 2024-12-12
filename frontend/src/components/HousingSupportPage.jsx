@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home } from 'lucide-react';  // Import the Home icon
+import "./HousingSupportPage.css";
 
 // Housing Support Page
 const HousingSupportPage = () => {
@@ -24,6 +25,14 @@ const HousingSupportPage = () => {
         <h1>Housing Legal Support</h1>
         <p>Get expert legal help with housing-related issues</p>
       </header>
+       {/* New Image Section */}
+       <section className="image-section">
+        <img
+          src="https://rsnonline.org.uk/images/article%20images/landscape%20for%20article/housing_market_landscape.jpg" // Replace with your image path
+          alt="Housing Support"
+          className="image-section-img"
+        />
+      </section>
       <section className="service-details">
         <h2>Our Housing Services</h2>
         <ul>
