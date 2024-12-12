@@ -13,6 +13,8 @@ const ServicePage = () => {
 
       <section className="service-list">
         <div className="service-item">
+          {/* Link to Immigration Support Page */}
+        <Link to="/immigration">
           <div className="immigration-box">
             <img 
               src="/assets/images/immigration.jpg" 
@@ -20,16 +22,16 @@ const ServicePage = () => {
               className="service-image"
             />
           </div>
-          {/* Link to Immigration Support Page */}
-          <Link to="/immigration-support">
             <h3>Immigration Legal Assistance</h3>
-          </Link>
           <p>
             Our immigration services help individuals navigate complex legal processes with ease. We offer personalized support to ensure your rights are protected and your needs are met.
           </p>
+          </Link>
         </div>
 
         <div className="service-item">
+          {/* Link to Housing Support Page */}
+          <Link to="/housing">
           <div className="housing-box">
             <img 
               src="/assets/images/housing.jpg" 
@@ -37,16 +39,16 @@ const ServicePage = () => {
               className="service-image"
             />
           </div>
-          {/* Link to Housing Support Page */}
-          <Link to="/housing-support">
             <h3>Housing Law Support</h3>
-          </Link>
           <p>
             We provide expert advice on housing issues, ensuring tenants and landlords understand their rights and responsibilities. Our services aim to resolve disputes efficiently.
           </p>
+          </Link>
         </div>
 
         <div className="service-item">
+          {/* Link to Employment Support Page */}
+          <Link to="/employment">
           <div className="employment-box">
             <img 
               src="/assets/images/employment.jpg" 
@@ -54,13 +56,11 @@ const ServicePage = () => {
               className="service-image"
             />
           </div>
-          {/* Link to Employment Support Page */}
-          <Link to="/employment-support">
             <h3>Employment Law Guidance</h3>
-          </Link>
           <p>
             Our employment law services cover a wide range of issues, from contract disputes to workplace discrimination. We are committed to protecting your employment rights.
           </p>
+          </Link>
         </div>
       </section>
     </div>
