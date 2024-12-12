@@ -21,6 +21,9 @@ import AdminManageLawyers from "./components/AdminManageLawyers";
 import AdminLoginForm from "./components/AdminLoginForm";
 import LawyerHomePage from "./components/LawyerHomePage";
 import LawyerLogin from "./components/LawyerLogin";
+import ImmigrationSupportPage from "./components/ImmigrationSupportPage";
+import EmploymentServicePage from "./components/EmploymentServicePage";
+import HousingSupportPage from "./components/HousingSupportPage";
 
 const App = () => {
 
@@ -47,6 +50,9 @@ const App = () => {
           <Route path="/login" element={<Login/>} />
           <Route path="/lawyer-home" element={<LawyerHomePage />} />
           <Route path="/lawyer-login" element={<LawyerLogin />} />
+          <Route path="/immigration" element={<ImmigrationSupportPage/>} />
+          <Route path="/housing" element={<HousingSupportPage/>} />
+          <Route path="/employment" element={<EmploymentServicePage/>} />
         </Routes>
       </main>
       <Footer />
