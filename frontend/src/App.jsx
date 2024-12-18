@@ -26,7 +26,7 @@ import EmploymentServicePage from "./components/EmploymentServicePage";
 import HousingSupportPage from "./components/HousingSupportPage";
 import DonatePage from "./components/DonatePage";
 import GoogleTranslate from "./components/GoogleTranslate";
-import ClientFeedbackForm from "./components/ClientFeedbackForm";
+
 const App = () => {
 
   return (
@@ -57,7 +57,6 @@ const App = () => {
           <Route path="/employment" element={<EmploymentServicePage/>} />
           <Route path="/donate" element={<DonatePage />} />
           <Route path="/google-translate" element={<GoogleTranslate />} />
-          <Route path="/client-feedback" element={<ClientFeedbackForm />} />
         </Routes>
       </main>
       <Footer />
