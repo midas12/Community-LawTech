@@ -32,7 +32,7 @@ const AboutUs = () => {
       name: "Gabriela Shiva",
       role: "IT Specialist",
       description: "Gaby ensures that the Community LawTech platform runs smoothly and efficiently.",
-      image: "https://cotugnophoto.com/wp-content/uploads/2024/09/ccp-corporate-lawyer-formal-headshot-16x9-1.jpg",
+      image: "https://www.hoagstudio.com/wp-content/uploads/2022/01/professional-headshots-santa-monica.jpg",
       linkedin: "#",
       twitter: "#",
     },
