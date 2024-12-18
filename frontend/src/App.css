@@ -154,6 +154,89 @@ body {
 .dropdown-menu-right {
   right: 0;
 }
+/* Hamburger Menu Button */
+.hamburger-menu {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+}
+/* Responsive Navigation */
+@media (max-width: 700px) {
+  .header-box .container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .header-box nav {
+    display: none;
+  }
+  .header-buttons { 
+    display: none; /* Hide header buttons */ 
+  }
+
+  .hamburger-menu {
+    display: block;
+    color: #000;
+  }
+
+  .header-box nav.show {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    position: absolute;
+    top: 60px; /* Adjust based on header height */
+    left: 0;
+    width: 200px; /* Adjust width as needed */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .header-box .logo{
+    text-align: left; /* Align h1 to the left */ 
+    margin-right: 40px; /* Optional: Add some left margin for better spacing */
+  }
+}
+
+/* Responsive Navigation */
+@media (max-width: 600px) {
+  .header-box .container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .header-box nav {
+    display: none;
+  }
+  .header-buttons { 
+    display: none; /* Hide header buttons */ 
+  }
+
+  .hamburger-menu {
+    display: block;
+    color: #000;
+  }
+
+  .header-box nav.show {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    position: absolute;
+    top: 60px; /* Adjust based on header height */
+    left: 0;
+    width: 200px; /* Adjust width as needed */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  .header-box .logo{
+    text-align: left; /* Align h1 to the left */ 
+    margin-right: 40px; /* Optional: Add some left margin for better spacing */
+  }
+}
+
 
 
 
@@ -411,7 +494,33 @@ body {
 .missions .btn:focus {
   outline: none;
 }
-
+ /* Responsive Styles for 600px and below */
+ @media (max-width: 600px) {
+  .hero {
+    padding: 60px 10px; /* Reduce padding for smaller screens */
+    height: auto; /* Adjust height for smaller screens */
+  }
+  .hero h2 {
+    font-size: 1.8rem; /* Reduce font size for smaller screens */
+  }
+  .hero p {
+    font-size: 1rem; /* Reduce font size for smaller screens */
+  }
+  .hero-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Reduce gap between buttons */
+  }
+  .btn { 
+    padding: 8px 10px; /* Reduce padding for smaller screens */ 
+    font-size: 12px; /* Reduce font size for smaller screens */ 
+  }
+  .missions h2 {
+    font-size: 1.5rem; /* Reduce font size for smaller screens */
+  }
+  .missions p {
+    font-size: 1rem; /* Reduce font size for smaller screens */
+  }
+}
 
 
 
@@ -832,6 +941,20 @@ h1 {
   cursor: pointer;
 }
 .sign-in-button:hover {
+  background-color: #b30098;
+}
+.log-in-button {
+  width: 99%;
+  padding: 10px;
+  background-color: #5e013f;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.log-in-button:hover {
   background-color: #b30098;
 }
 .error-message {
