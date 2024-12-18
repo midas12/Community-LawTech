@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../Api/axiosInstance";
 
 // Validation Schema
@@ -26,10 +27,11 @@ const schema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required("Password confirmation is required"),
-  terms: yup.boolean().oneOf([true], "You must accept the terms and conditions")
+  terms: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
 });
 
 const LawyerRegistrationForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -42,7 +44,7 @@ const LawyerRegistrationForm = () => {
       barMembershipNumber: "",
       password: "",
       confirmPassword: "",
-      terms: false
+      terms: false,
     },
   });
 
@@ -54,6 +56,7 @@ const LawyerRegistrationForm = () => {
       const response = await axiosInstance.post("/lawyer-registration", data);
       toast.success(response.data.message || "Registration successful!");
       reset();
+      navigate("/lawyer-home"); // Navigate to lawyer-home page after successful registration
     } catch (error) {
       toast.error(error.response?.data?.message || "Registration failed!");
     } finally {
@@ -128,7 +131,7 @@ const LawyerRegistrationForm = () => {
             className={`form-check-input ${errors.terms ? "is-invalid" : ""}`}
           />
           <label className="form-check-label">
-            I accept the <a href="/terms-and-conditions" target="_blank" rel="noopener noreferrer">terms and conditions</a>
+            I accept the terms and conditions
           </label>
           <div className="invalid-feedback">{errors.terms?.message}</div>
         </div>
