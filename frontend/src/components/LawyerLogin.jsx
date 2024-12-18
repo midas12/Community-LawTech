@@ -18,15 +18,14 @@ const LawyerLogin = ({ setShowForm }) => {
     setShowForm(true);
   };
 
-  const handleSigninClick = (e) => {
-    e.preventDefault();
-    navigate("/lawyer-home");
-    setShowForm(true);
-  };
-
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    if (!email || !password) {
+      toast.error("Invalid email or password");
+      setIsLoading(false);
+      return;
+    }
     if (!validateEmail(email) || !validatePassword(password)) {
       setIsLoading(false);
       return;
@@ -41,7 +40,11 @@ const LawyerLogin = ({ setShowForm }) => {
       localStorage.setItem("token", response.data.token); // Store token for authenticated routes
       navigate("/dashboard"); // Redirect to dashboard after login
     } catch (error) {
-      toast.error(error.response?.data?.message || "Invalid email or password");
+      if (error.response && error.response.status === 404) {
+        alert("You don't have an account");
+      } else {
+        toast.error(error.response?.data?.message || "Invalid email or password");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -136,8 +139,8 @@ const LawyerLogin = ({ setShowForm }) => {
               Forgot Password?
             </a>
           </div>
-          <button type="submit" className="sign-in-button" disabled={isLoading} href="/lawyer-home" onClick={handleSigninClick}>
-            {isLoading ? "Signing in..." : "Sign in"}
+          <button type="submit" className="log-in-button" disabled={isLoading}>
+            {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
         <p className="signup-link">
