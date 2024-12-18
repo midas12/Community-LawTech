@@ -1,5 +1,3 @@
-import React from 'react';
-import { Briefcase } from 'lucide-react';  // Import the Briefcase icon
 import "./EmploymentServicePage.css"
 
 // Employment Service Page

@@ -1,20 +1,19 @@
-import { firestore } from "../firebaseService.js";
+const { db } = require('../firebase/firebase');
 
-export const saveLawyerOnboarding = async (req, res) => {
+exports.onboardLawyer = async (req, res) => {
   try {
-    const data = req.body;
-    const files = req.files;
-    
-    // Handle files if required (e.g., save to Firebase Storage)
-    console.log("Uploaded Files:", files);
-
-    // Save data to Firestore
-    const collectionRef = firestore.collection("lawyerOnboarding");
-    await collectionRef.add(data);
-
-    res.status(201).json({ message: "Onboarding data saved successfully!" });
+    const { name, email, specialization, experience } = req.body;
+    const newLawyer = {
+      name,
+      email,
+      specialization,
+      experience,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+    const docRef = await db.collection('lawyers').add(newLawyer);
+    res.status(200).json({ message: 'Lawyer onboarded successfully', id: docRef.id });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed to save onboarding data." });
+    console.error('Error onboarding lawyer:', error);
+    res.status(500).json({ message: 'Error onboarding lawyer', error });
   }
 };

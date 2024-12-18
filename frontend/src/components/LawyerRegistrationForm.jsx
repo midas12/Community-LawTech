@@ -26,7 +26,7 @@ const schema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required("Password confirmation is required"),
-  terms: yup.boolean().oneOf([true], "You must accept the terms and conditions"),
+  terms: yup.boolean().oneOf([true], "You must accept the terms and conditions")
 });
 
 const LawyerRegistrationForm = () => {
@@ -42,7 +42,7 @@ const LawyerRegistrationForm = () => {
       barMembershipNumber: "",
       password: "",
       confirmPassword: "",
-      terms: false,
+      terms: false
     },
   });
 
@@ -128,7 +128,7 @@ const LawyerRegistrationForm = () => {
             className={`form-check-input ${errors.terms ? "is-invalid" : ""}`}
           />
           <label className="form-check-label">
-            I accept the terms and conditions
+            I accept the <a href="/terms-and-conditions" target="_blank" rel="noopener noreferrer">terms and conditions</a>
           </label>
           <div className="invalid-feedback">{errors.terms?.message}</div>
         </div>

@@ -1,30 +1,46 @@
+import { db } from '../firebaseService.js'; // Ensure firebaseService.js is configured correctly
 
-import { addSubscription } from '../firebaseService.js';
-
-// Function to handle subscription
-export const handleSubscription = async (req, res) => {
-  const subscriptionData = req.body;
-  try {
-    const subscriptionId = await addSubscription(subscriptionData);
-    res.status(201).send({ success: true, subscriptionId });
-  } catch (error) {
-    res.status(500).send({ success: false, message: error.message });
-  }
+// Get mission data
+export const getMission = async (req, res) => {
+    try {
+        const snapshot = await db.collection('missions').get();
+        const missions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json(missions);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to retrieve missions', details: error.message });
+    }
 };
 
-export const getMission = (req, res) => {
-    // Your getMission implementation
-  };
-  
-  export const postMission = (req, res) => {
-    // Your postMission implementation
-  };
-  
-  export const updateMission = (req, res) => {
-    // Your updateMission implementation
-  };
-  
-  export const deleteMission = (req, res) => {
-    // Your deleteMission implementation
-  };
-  
+// Post mission data
+export const postMission = async (req, res) => {
+    try {
+        const newMission = req.body;
+        const docRef = await db.collection('missions').add(newMission);
+        res.status(201).json({ id: docRef.id, ...newMission });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to create mission', details: error.message });
+    }
+};
+
+// Update mission data by ID
+export const updateMission = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+        await db.collection('missions').doc(id).update(updates);
+        res.status(200).json({ id, ...updates });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update mission', details: error.message });
+    }
+};
+
+// Delete mission data by ID
+export const deleteMission = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await db.collection('missions').doc(id).delete();
+        res.status(200).json({ message: 'Mission deleted successfully', id });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete mission', details: error.message });
+    }
+};

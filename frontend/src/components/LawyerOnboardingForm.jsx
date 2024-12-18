@@ -1,219 +1,336 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { toast } from "react-toastify";
 import axiosInstance from "../Api/axiosInstance";
 import "../App.css";
-
-const religionList = [
-  "Christianity", "Islam", "Hinduism", "Buddhism", "Judaism", "Sikhism", "Bahá'í Faith", 
-  "Jainism", "Shinto", "Zoroastrianism", "Taoism", "Confucianism", "Paganism", "Wicca", 
-  "Rastafarianism"
-];
-
 const nationalityList = [
-  "Afghan", "Albanian", "Algerian", "American", "Andorran", "Angolan", 
-  "Argentine", "Armenian", "Australian", "Austrian", "Azerbaijani", 
-  "Bangladeshi", "Barbadian", "Belgian", "Brazilian", "British", 
-  "Bulgarian", "Canadian", "Chinese", "Colombian", "Croatian", 
-  "Cuban", "Danish", "Dutch", "Egyptian", "Filipino", "Finnish", 
-  "French", "German", "Ghanaian", "Greek", "Indian", "Indonesian", 
-  "Irish", "Italian", "Japanese", "Korean", "Mexican", "Nepalese", 
-  "Nigerian", "Norwegian", "Pakistani", "Polish", "Portuguese", 
-  "Romanian", "Russian", "Saudi", "South African", "Spanish", 
-  "Sri Lankan", "Swedish", "Swiss", "Thai", "Turkish", "Ukrainian", 
-  "Vietnamese", "Zambian", "Zimbabwean"
+  "Afghan",
+  "Albanian",
+  "Algerian",
+  "American",
+  "Andorran",
+  "Angolan",
+  "Argentine",
+  "Armenian",
+  "Australian",
+  "Austrian",
+  "Azerbaijani",
+  "Bangladeshi",
+  "Barbadian",
+  "Belgian",
+  "Brazilian",
+  "British",
+  "Bulgarian",
+  "Canadian",
+  "Chinese",
+  "Colombian",
+  "Croatian",
+  "Cuban",
+  "Danish",
+  "Dutch",
+  "Egyptian",
+  "Filipino",
+  "Finnish",
+  "French",
+  "German",
+  "Ghanaian",
+  "Greek",
+  "Indian",
+  "Indonesian",
+  "Irish",
+  "Italian",
+  "Japanese",
+  "Korean",
+  "Mexican",
+  "Nepalese",
+  "Nigerian",
+  "Norwegian",
+  "Pakistani",
+  "Polish",
+  "Portuguese",
+  "Romanian",
+  "Russian",
+  "Saudi",
+  "South African",
+  "Spanish",
+  "Sri Lankan",
+  "Swedish",
+  "Swiss",
+  "Thai",
+  "Turkish",
+  "Ukrainian",
+  "Vietnamese",
+  "Zambian",
+  "Zimbabwean",
 ].sort();
-
+const religionList = [
+  "Christianity",
+  "Islam",
+  "Hinduism",
+  "Buddhism",
+  "Judaism",
+  "Sikhism",
+  "Bahá'í Faith",
+  "Jainism",
+  "Shinto",
+  "Zoroastrianism",
+  "Taoism",
+  "Confucianism",
+  "Paganism",
+  "Wicca",
+  "Rastafarianism",
+];
 const languageList = [
-  "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani", "Bengali", 
-  "Bosnian", "Bulgarian", "Catalan", "Cebuano", "Chinese", "Croatian", "Czech", 
-  "Danish", "Dutch", "English", "Esperanto", "Estonian", "Finnish", "French", 
-  "Galician", "Georgian", "German", "Greek", "Gujarati", "Haitian Creole", "Hausa", 
-  "Hebrew", "Hindi", "Hungarian", "Icelandic", "Igbo", "Indonesian", "Irish", 
-  "Italian", "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer", "Korean", 
-  "Kurdish", "Kyrgyz", "Lao", "Latin", "Latvian", "Lithuanian", "Luxembourgish", 
-  "Macedonian", "Malagasy", "Malay", "Malayalam", "Maltese", "Maori", "Marathi", 
-  "Mongolian", "Nepali", "Norwegian", "Odia", "Pashto", "Persian", "Polish", 
-  "Portuguese", "Punjabi", "Romanian", "Russian", "Samoan", "Scots Gaelic", 
-  "Serbian", "Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian", 
-  "Somali", "Spanish", "Sundanese", "Swahili", "Swedish", "Tajik", "Tamil", 
-  "Tatar", "Telugu", "Thai", "Turkish", "Turkmen", "Ukrainian", "Urdu", "Uyghur", 
-  "Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yoruba"
-].sort();
-
-const FindLawyer = () => {
-  const [postcode, setPostcode] = useState("");
-  const [filterStage, setFilterStage] = useState(1);
-  const [filters, setFilters] = useState({
-    field: "",
-    language: "",
-    religion: "",
-    nationality: "",
-    gender: "",
+  "English",
+  "Spanish",
+  "French",
+  "German",
+  "Chinese",
+  "Japanese",
+  "Korean",
+  "Italian",
+  "Portuguese",
+  "Russian",
+  "Arabic",
+  "Hindi",
+  "Bengali",
+  "Punjabi",
+  "Javanese",
+  "Vietnamese",
+  "Tamil",
+  "Turkish",
+  "Persian",
+  "Swahili",
+  "Dutch",
+  "Greek",
+  "Czech",
+  "Hungarian",
+  "Polish",
+  "Romanian",
+  "Thai",
+];
+const schema = yup
+  .object()
+  .shape({
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
+    email: yup.string().email("Invalid email").required("Email is required"),
+    dateOfBirth: yup.date().required("Date of Birth is required"),
+    phone: yup.string().required("Phone number is required"),
+    address: yup.string().required("Address is required"),
+    barMembershipNumber: yup
+      .string()
+      .required("Bar Membership Number is required"),
+    jurisdictions: yup.string().required("Jurisdictions are required"),
+    lawSchool: yup.string().required("Law School is required"),
+    graduationYear: yup
+      .number()
+      .required("Graduation Year is required")
+      .typeError("Graduation Year must be a number"),
+    position: yup.string().required("Position is required"),
+    department: yup.string().required("Department is required"),
+    religion: yup.string().required("Religion is required"),
+    nationality: yup.string().required("Nationality is required"),
+    officeLocation: yup.string().required("Office Location is required"),
+    language: yup.string().required("Language is required"),
   });
-  const [lawyers, setLawyers] = useState([]);
-  const [selectedLawyer, setSelectedLawyer] = useState(null);
-  const [mapUrl, setMapUrl] = useState("");
-
-  const fields = ["Corporate Law", "Criminal Law", "Family Law", "Property Law", "Immigration", "Housing", "Employment"];
-  const genders = ["Male", "Female", "Non-binary", "Other"];
-
-  const handleSearch = async () => {
+const LawyerOnboardingForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
     try {
-      const response = await axiosInstance.get(`/lawyers/search?postcode=${postcode}`);
-      setLawyers(response.data);
-      setFilterStage(2);
+      const response = await axiosInstance.post("/lawyer-onboarding", data);
+      toast.success(response.data.message || "Onboarding Successful!");
+      reset();
     } catch (error) {
-      console.error("Error fetching lawyers:", error);
+      toast.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setIsSubmitting(false);
     }
   };
-
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleNextFilter = () => {
-    if (filterStage < 6) setFilterStage(filterStage + 1);
-  };
-
-  const handleLawyerSelect = (lawyer) => {
-    setSelectedLawyer(lawyer);
-    const mapLink = `https://www.google.com/maps/dir/?api=1&destination=${lawyer.location.lat},${lawyer.location.lng}`;
-    setMapUrl(mapLink);
-  };
-
-  const handleFormSubmit = () => {
-    console.log("Selected Filters:", filters);
-    console.log("Filtered Lawyers:", lawyers);
-    alert("Filters applied! Check console for details.");
-  };
-
   return (
-    <div className="find-lawyer">
-      <h1>Find Your Lawyer</h1>
-
-      {/* Search by Postcode */}
-      {filterStage === 1 && (
-        <div className="filter-stage">
-          <h2>Enter Your Postcode</h2>
+    <div className="lawyer-onboarding-form">
+      {" "}
+      <h1>Lawyer Onboarding</h1>{" "}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {" "}
+        <h3>Personal Information</h3>{" "}
+        <div className="form-group">
+          {" "}
+          <label>First Name</label>{" "}
           <input
             type="text"
-            placeholder="Enter Postcode"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
-      )}
-
-      {/* Filter by Field */}
-      {filterStage === 2 && (
-        <div className="filter-stage">
-          <h2>Select Field</h2>
-          <select name="field" value={filters.field} onChange={handleFilterChange}>
-            <option value="">Select Field</option>
-            {fields.map((field) => (
-              <option key={field} value={field}>
-                {field}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Language */}
-      {filterStage === 3 && (
-        <div className="filter-stage">
-          <h2>Select Language</h2>
-          <select name="language" value={filters.language} onChange={handleFilterChange}>
-            <option value="">Select Language</option>
-            {languageList.map((language) => (
-              <option key={language} value={language}>
-                {language}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Religion */}
-      {filterStage === 4 && (
-        <div className="filter-stage">
-          <h2>Select Religion</h2>
-          <select name="religion" value={filters.religion} onChange={handleFilterChange}>
-            <option value="">Select Religion</option>
+            {...register("firstName")}
+            className={`form-control ${errors.firstName ? "is-invalid" : ""}`}
+          />{" "}
+          <div className="invalid-feedback">{errors.firstName?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Last Name</label>{" "}
+          <input
+            type="text"
+            {...register("lastName")}
+            className={`form-control ${errors.lastName ? "is-invalid" : ""}`}
+          />{" "}
+          <div className="invalid-feedback">{errors.lastName?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Email</label>{" "}
+          <input
+            type="email"
+            {...register("email")}
+            className={`form-control ${errors.email ? "is-invalid" : ""}`}
+          />{" "}
+          <div className="invalid-feedback">{errors.email?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Date of Birth</label>{" "}
+          <input
+            type="date"
+            {...register("dateOfBirth")}
+            className={`form-control ${errors.dateOfBirth ? "is-invalid" : ""}`}
+          />{" "}
+          <div className="invalid-feedback">{errors.dateOfBirth?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Phone</label>{" "}
+          <input
+            type="tel"
+            {...register("phone")}
+            className={`form-control ${errors.phone ? "is-invalid" : ""}`}
+          />{" "}
+          <div className="invalid-feedback">{errors.phone?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Address</label>{" "}
+          <input
+            type="text"
+            {...register("address")}
+            className={`form-control ${errors.address ? "is-invalid" : ""}`}
+          />{" "}
+          <div className="invalid-feedback">{errors.address?.message}</div>{" "}
+        </div>{" "}
+        <h3>Professional Information</h3>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Bar Membership Number</label>{" "}
+          <input
+            type="text"
+            {...register("barMembershipNumber")}
+            className={`form-control ${
+              errors.barMembershipNumber ? "is-invalid" : ""
+            }`}
+          />{" "}
+          <div className="invalid-feedback">
+            {errors.barMembershipNumber?.message}
+          </div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Jurisdictions</label>{" "}
+          <input
+            type="text"
+            {...register("jurisdictions")}
+            className={`form-control ${
+              errors.jurisdictions ? "is-invalid" : ""
+            }`}
+          />{" "}
+          <div className="invalid-feedback">
+            {errors.jurisdictions?.message}
+          </div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Religion</label>{" "}
+          <select
+            {...register("religion")}
+            className={`form-control ${errors.religion ? "is-invalid" : ""}`}
+          >
+            {" "}
+            <option value="">Select Religion</option>{" "}
             {religionList.map((religion) => (
               <option key={religion} value={religion}>
-                {religion}
+                {" "}
+                {religion}{" "}
               </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Nationality */}
-      {filterStage === 5 && (
-        <div className="filter-stage">
-          <h2>Select Nationality</h2>
-          <select name="nationality" value={filters.nationality} onChange={handleFilterChange}>
-            <option value="">Select Nationality</option>
+            ))}{" "}
+          </select>{" "}
+          <div className="invalid-feedback">{errors.religion?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Nationality</label>{" "}
+          <select
+            {...register("nationality")}
+            className={`form-control ${errors.nationality ? "is-invalid" : ""}`}
+          >
+            {" "}
+            <option value="">Select Nationality</option>{" "}
             {nationalityList.map((nationality) => (
               <option key={nationality} value={nationality}>
-                {nationality}
+                {" "}
+                {nationality}{" "}
               </option>
-            ))}
-          </select>
-          <button onClick={handleNextFilter}>Next</button>
-        </div>
-      )}
-
-      {/* Filter by Gender */}
-      {filterStage === 6 && (
-        <div className="filter-stage">
-          <h2>Select Gender</h2>
-          <select name="gender" value={filters.gender} onChange={handleFilterChange}>
-            <option value="">Select Gender</option>
-            {genders.map((gender) => (
-              <option key={gender} value={gender}>
-                {gender}
+            ))}{" "}
+          </select>{" "}
+          <div className="invalid-feedback">{errors.nationality?.message}</div>{" "}
+        </div>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Language</label>{" "}
+          <select
+            {...register("language")}
+            className={`form-control ${errors.language ? "is-invalid" : ""}`}
+          >
+            {" "}
+            <option value="">Select Language</option>{" "}
+            {languageList.map((language) => (
+              <option key={language} value={language}>
+                {" "}
+                {language}{" "}
               </option>
-            ))}
-          </select>
-          <button onClick={handleFormSubmit}>Apply Filters</button>
+            ))}{" "}
+          </select>{" "}
+          <div className="invalid-feedback">{errors.language?.message}</div>{" "}
+        </div>{" "}
+        <h3>Office Details</h3>{" "}
+        <div className="form-group">
+          {" "}
+          <label>Office Location</label>{" "}
+          <input
+            type="text"
+            {...register("officeLocation")}
+            className={`form-control ${
+              errors.officeLocation ? "is-invalid" : ""
+            }`}
+          />{" "}
+          <div className="invalid-feedback">
+            {errors.officeLocation?.message}
+          </div>{" "}
         </div>
-      )}
-
-      {/* Display Lawyer Results */}
-      {lawyers.length > 0 && (
-        <div className="lawyer-list">
-          <h2>Available Lawyers</h2>
-          {lawyers.map((lawyer) => (
-            <div
-              key={lawyer.id}
-              className="lawyer-card"
-              onClick={() => handleLawyerSelect(lawyer)}
-            >
-              <h3>{lawyer.name}</h3>
-              <p>Field: {lawyer.specialisation.join(", ")}</p>
-              <p>Distance: {lawyer.distance} miles</p>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Google Map for Selected Lawyer */}
-      {selectedLawyer && (
-        <div className="modal">
-          <h2>Book Lawyer: {selectedLawyer.name}</h2>
-          <a href={mapUrl} target="_blank" rel="noopener noreferrer">
-            View Directions on Google Maps
-          </a>
-        </div>
-      )}
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </button>
+      </form>
     </div>
   );
 };
 
-export default FindLawyer;
+export default LawyerOnboardingForm;

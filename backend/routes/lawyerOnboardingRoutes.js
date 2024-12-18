@@ -1,8 +1,8 @@
-import express from "express";
-import { saveLawyerOnboarding } from "../controllers/lawyerOnboardingController.js";
+const express = require('express');
+const { onboardLawyer } = require('../controllers/lawyerOnboardingController');
 
 const router = express.Router();
 
-router.post("/", saveLawyerOnboarding);
+router.post('/onboard', onboardLawyer);
 
-export default router;
+module.exports = router;
