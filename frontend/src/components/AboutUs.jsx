@@ -1,8 +1,12 @@
+import React from "react";
 import "../App.css"; // Ensure centralized styling is applied
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const AboutUs = () => {
+  const navigate = useNavigate(); // Initialize navigate
+
   const teamMembers = [
     {
       name: "Ammar Abdul Razak",
@@ -67,7 +71,7 @@ const AboutUs = () => {
           <div key={index} className="team-member-card">
             <img
               src={member.image}
-              // alt={`${member.name}'s profile`}
+              alt={`${member.name}'s profile`}
               className="team-member-image"
             />
             <h3 className="team-member-name">{member.name}</h3>
@@ -101,6 +105,14 @@ const AboutUs = () => {
         ) : (
           <p>No reviews available at the moment.</p>
         )}
+      </div>
+
+      {/* Feedback Button Section */}
+      <div className="client-feedback-section">
+        <h5 className="client-feedback">We would love to hear from you! Every feedback is important to us!</h5>
+        <button className="feedback" onClick={() => navigate("/client-feedback")}>
+          Feedback
+        </button>
       </div>
     </div>
   );
