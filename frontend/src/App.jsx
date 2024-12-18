@@ -26,7 +26,7 @@ import EmploymentServicePage from "./components/EmploymentServicePage";
 import HousingSupportPage from "./components/HousingSupportPage";
 import DonatePage from "./components/DonatePage";
 import GoogleTranslate from "./components/GoogleTranslate";
-import ClientFeedbackForm from "./components/ClientFeedackForm";
+import ClientFeedbackForm from "./components/ClientFeedbackForm";
 const App = () => {
 
   return (
