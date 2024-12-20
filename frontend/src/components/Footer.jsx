@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 function Footer() {
   return (
@@ -8,7 +9,7 @@ function Footer() {
         <p className="copyright-text">
           © {new Date().getFullYear()} Law Tech. All rights reserved.
         </p>
-        <a href="#terms" className="terms-link">Terms of Service</a>
+        <Link to="/terms" className="terms-link">Terms of Service</Link>
       </div>
     </footer>
   );
