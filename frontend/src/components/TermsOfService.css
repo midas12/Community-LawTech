@@ -1,0 +1,20 @@
+/* TermsOfService.css */
+.terms-of-service .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .terms-of-service h1, .terms-of-service h2 {
+    color: #333;
+  }
+  
+  .terms-of-service p {
+    line-height: 1.6;
+    color: #555;
+  }
+  
+  .terms-of-service section {
+    margin-bottom: 2rem;
+  }
+  
