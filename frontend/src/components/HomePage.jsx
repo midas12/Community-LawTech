@@ -48,16 +48,16 @@ const HomePage = () => {
               </button>
               <button className="btn btn-outline-secondary">Donate Now</button>
             </div>
-            <button
+{/*             <button
               onClick={() => setShowChatbot(!showChatbot)}
               className="chatbot-button"
             >
               {showChatbot ? "Close Chatbot" : "Open Chatbot"}
-            </button>
+            </button> */}
           </div>
 
           {/* Chatbot conditional rendering */}
-          {showChatbot && <Chatbot />}
+{/*           {showChatbot && <Chatbot />} */}
 
           <div className="missions">
   <h2>Support Our Mission</h2>
